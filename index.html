@@ -1,0 +1,120 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Robinchenyu.GitHub.io</title>
+  <meta name="description" content="vim ctrlp">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Robinchenyu.GitHub.io</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">vim ctrlp</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/robinchenyu" class="code">View Robinchenyu.GitHub.io on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h1>
+<a id="让ctrlp支持工程目录" class="anchor" href="#%E8%AE%A9ctrlp%E6%94%AF%E6%8C%81%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>让ctrlp支持工程目录</h1>
+
+<p>ctrlp这个插件非常好用,唯一不足的是,如果工程文件是多级目录时,显得不是那么灵活.理想的是在工程文件时,调用ctrlp会自动把工程目录作为基本目录,在其子目录中查找文件.</p>
+
+<h2>
+<a id="增加函数findprojdir如下" class="anchor" href="#%E5%A2%9E%E5%8A%A0%E5%87%BD%E6%95%B0findprojdir%E5%A6%82%E4%B8%8B" aria-hidden="true"><span class="octicon octicon-link"></span></a>增加函数FindProjDir如下:</h2>
+
+<pre lang="vimscript"><code>" vimrc
+function! FindProjDir()
+    let cur_dir = getcwd()
+    let myprojects = {"xercesc": ".\\+src.xercesc",
+                \ "oa": ".\\+Env.\\+oa.\\+project"}
+
+    for [key,val] in items(myprojects)
+        if cur_dir =~ val
+            echom "find project: " . key
+            return [key, matchstr(cur_dir, val)]
+        endif
+    endfor
+    echom "no project"
+    return ["unknown", cur_dir]
+endfunction
+</code></pre>
+
+<h2>
+<a id="修改ctrlpvim" class="anchor" href="#%E4%BF%AE%E6%94%B9ctrlpvim" aria-hidden="true"><span class="octicon octicon-link"></span></a>修改ctrlp.vim</h2>
+
+<pre lang="vimscript"><code>" - SetWD() {{{1
+fu! s:SetWD(args)
+    if has_key(a:args, 'args') &amp;&amp; stridx(a:args['args'], '--dir') &gt;= 0
+        \ &amp;&amp; exists('s:dyncwd')
+        cal ctrlp#setdir(s:dyncwd) | retu
+    en
+    if has_key(a:args, 'dir') &amp;&amp; a:args['dir'] != ''
+        cal ctrlp#setdir(a:args['dir']) | retu
+    en
+    let pmode = has_key(a:args, 'mode') ? a:args['mode'] : s:pathmode
+    let [s:crfilerel, s:dyncwd] = [fnamemodify(s:crfile, ':.'), getcwd()]
+    if s:crfile =~ '^.\+://' | retu | en
+    if pmode =~ 'c' || ( pmode =~ 'a' &amp;&amp; stridx(s:crfpath, s:cwd) &lt; 0 )
+        \ || ( !type(pmode) &amp;&amp; pmode )
+        if exists('+acd') | let [s:glb_acd, &amp;acd] = [&amp;acd, 0] | en
++    let [project_name, project_dir] = FindProjDir()
++    if project_name == 'unknown'
++         cal ctrlp#setdir(s:crfpath)
++    else
+      call ctrlp#setdir(project_dir)
++    endif
+    en
+    if pmode =~ 'r' || pmode == 2
+        let markers = ['.git', '.hg', '.svn', '.bzr', '_darcs']
+        let spath = pmode =~ 'd' ? s:dyncwd : pmode =~ 'w' ? s:cwd : s:crfpath
+        if type(s:rmarkers) == 3 &amp;&amp; !empty(s:rmarkers)
+            if s:findroot(spath, s:rmarkers, 0, 0) != [] | retu | en
+            cal filter(markers, 'index(s:rmarkers, v:val) &lt; 0')
+        en
+        cal s:findroot(spath, markers, 0, 0)
+    en
+endf
+</code></pre>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+
+      <p><a href="https://github.com/robinchenyu" class="avatar"><img src="https://avatars0.githubusercontent.com/u/2443896?v=3&amp;s=60" width="48" height="48"></a>View <a href="https://github.com/robinchenyu">robinchenyu</a> on <a href="https://www.github.com">GitHub</a></p>
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/robinchenyu/robinchenyu.github.io/tarball/master" class="tar">tar</a><a href="https://github.com/robinchenyu/robinchenyu.github.io/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
