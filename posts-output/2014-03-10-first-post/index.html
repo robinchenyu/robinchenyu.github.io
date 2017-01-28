@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>My Awesome Blog: Archives</title>
-    <link rel="canonical" href="http://blogawesome.com/archives/">
+    <title>My Awesome Blog: On deploying post with github pages and cryogen</title>
+    <link rel="canonical" href="http://blogawesome.com/posts-output/2014-03-10-first-post/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ><a href="/">Home</a></li>
                 <li
-                 class="active" ><a href="/archives/">Archives</a></li>
+                ><a href="/archives/">Archives</a></li>
                 
                 <li
                 >
@@ -51,47 +51,43 @@
         <div class="col-lg-9">
             <div id="content">
                 
-<div id="posts">
-    <div id="page-header">
-        <h2>Archives</h2>
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">2014年3月10日</div>
+        
     </div>
+    <h2>On deploying post with github pages and cryogen</h2>
+</div>
+<div>
     
-        <h4>2017 一月</h4>
-        <ul>
-        
-        <li>
-            一月 28 - <a href="/posts-output/2017-01-28-deploy-github-pages/">On deploying post with github pages and cryogen</a>
-        </li>
-        
-        </ul>
+    <h3><a name="install&#95;cryogen"></a>Install Cryogen</h3><p>Install Cryogen</p><pre><code class="bash">lein new cryogen my-blog
+cd my-blog
+lein ring server
+</code></pre><h3><a name="修改cryogen配置参数"></a>修改Cryogen配置参数</h3><p>编辑resources/templates/config.edn,修改配置参数blog-prefix为空。 修改后，需要运行lein ring server，这时会自动更新resources/public目录下的文件</p><h3><a name="register&#95;and&#95;git&#95;a&#95;github&#95;pages&#95;account&#95;robinchenyu.github.io"></a>register and git a github pages account robinchenyu.github.io</h3>  <br /><h3><a name="克隆robinchenyu.github.io项目到本地"></a>克隆robinchenyu.github.io项目到本地</h3>  <br /><p>克隆项目到本地后，拷贝templates/public下的所有文件到项目中，然后测试 <a href='https://robinchenyu.github.io'>主页</a></p>
+</div>
+
+<div id="post-tags">
+    <b>Tags: </b>
     
-        <h4>2016 一月</h4>
-        <ul>
-        
-        <li>
-            一月 07 - <a href="/posts-output/2016-01-07-docs/">Quick Start Guide</a>
-        </li>
-        
-        </ul>
+    <a href="/tags-output/cryogen/">cryogen</a>
     
-        <h4>2014 十一月</h4>
-        <ul>
-        
-        <li>
-            十一月 04 - <a href="/posts-output/2014-11-04-second-post/">Yet Another Post</a>
-        </li>
-        
-        </ul>
+    <a href="/tags-output/github/">github</a>
     
-        <h4>2014 三月</h4>
-        <ul>
-        
-        <li>
-            三月 10 - <a href="/posts-output/2014-03-10-first-post/">On deploying post with github pages and cryogen</a>
-        </li>
-        
-        </ul>
+    <a href="/tags-output/clojure/">clojure</a>
     
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts-output/2014-11-04-second-post/">&laquo; Yet Another Post</a>
+        
+        
+    </div>
+
+    
+
 
 </div>
 
