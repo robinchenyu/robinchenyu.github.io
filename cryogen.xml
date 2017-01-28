@@ -12,11 +12,34 @@ http://blogawesome.com/
 This blog is awesome
 </description>
 <lastBuildDate>
-Sat, 28 Jan 2017 23:10:15 +0530
+Sat, 28 Jan 2017 23:14:19 +0530
 </lastBuildDate>
 <generator>
 clj-rss
 </generator>
+<item>
+<guid>
+http://blogawesome.com/posts-output/2017-01-28-deploy-github-pages/
+</guid>
+<link>
+http://blogawesome.com/posts-output/2017-01-28-deploy-github-pages/
+</link>
+<title>
+On deploying post with github pages and cryogen
+</title>
+<description>
+&lt;h3&gt;&lt;a name=&quot;install&amp;#95;cryogen&quot;&gt;&lt;/a&gt;Install Cryogen&lt;/h3&gt;&lt;p&gt;Install Cryogen&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;lein new cryogen my-blog
+cd my-blog
+lein ring server
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a name=&quot;修改cryogen配置参数&quot;&gt;&lt;/a&gt;修改Cryogen配置参数&lt;/h3&gt;&lt;p&gt;编辑resources/templates/config.edn,修改配置参数blog-prefix为空。 修改后，需要运行lein ring server，这时会自动更新resources/public目录下的文件&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;register&amp;#95;and&amp;#95;git&amp;#95;a&amp;#95;github&amp;#95;pages&amp;#95;account&amp;#95;robinchenyu.github.io&quot;&gt;&lt;/a&gt;register and git a github pages account robinchenyu.github.io&lt;/h3&gt;  &lt;br /&gt;&lt;h3&gt;&lt;a name=&quot;克隆robinchenyu.github.io项目到本地&quot;&gt;&lt;/a&gt;克隆robinchenyu.github.io项目到本地&lt;/h3&gt;  &lt;br /&gt;&lt;p&gt;克隆项目到本地后，拷贝templates/public下的所有文件到项目中，然后测试 https://robinchenyu.github.io&lt;/p&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Sat, 28 Jan 2017 00:00:00 +0530
+</pubDate>
+</item>
 <item>
 <guid>
 http://blogawesome.com/posts-output/2016-01-07-docs/
@@ -91,29 +114,6 @@ Quick Start Guide
 </enclosure>
 <pubDate>
 Thu, 07 Jan 2016 00:00:00 +0530
-</pubDate>
-</item>
-<item>
-<guid>
-http://blogawesome.com/posts-output/2014-03-10-first-post/
-</guid>
-<link>
-http://blogawesome.com/posts-output/2014-03-10-first-post/
-</link>
-<title>
-On deploying post with github pages and cryogen
-</title>
-<description>
-&lt;h3&gt;&lt;a name=&quot;install&amp;#95;cryogen&quot;&gt;&lt;/a&gt;Install Cryogen&lt;/h3&gt;&lt;p&gt;Install Cryogen&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;lein new cryogen my-blog
-cd my-blog
-lein ring server
-&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a name=&quot;修改cryogen配置参数&quot;&gt;&lt;/a&gt;修改Cryogen配置参数&lt;/h3&gt;&lt;p&gt;编辑resources/templates/config.edn,修改配置参数blog-prefix为空。 修改后，需要运行lein ring server，这时会自动更新resources/public目录下的文件&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;register&amp;#95;and&amp;#95;git&amp;#95;a&amp;#95;github&amp;#95;pages&amp;#95;account&amp;#95;robinchenyu.github.io&quot;&gt;&lt;/a&gt;register and git a github pages account robinchenyu.github.io&lt;/h3&gt;  &lt;br /&gt;&lt;h3&gt;&lt;a name=&quot;克隆robinchenyu.github.io项目到本地&quot;&gt;&lt;/a&gt;克隆robinchenyu.github.io项目到本地&lt;/h3&gt;  &lt;br /&gt;&lt;p&gt;克隆项目到本地后，拷贝templates/public下的所有文件到项目中，然后测试 https://robinchenyu.github.io&lt;/p&gt;
-</description>
-<enclosure>
-
-</enclosure>
-<pubDate>
-Mon, 10 Mar 2014 00:00:00 +0530
 </pubDate>
 </item>
 </channel>
