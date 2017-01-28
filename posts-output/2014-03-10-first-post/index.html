@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>My Awesome Blog: A Post</title>
+    <title>My Awesome Blog: On deploying post with github pages and cryogen</title>
     <link rel="canonical" href="http://blogawesome.com/posts-output/2014-03-10-first-post/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
@@ -57,17 +57,24 @@
         <div class="col-lg-6">2014年3月10日</div>
         
     </div>
-    <h2>A Post</h2>
+    <h2>On deploying post with github pages and cryogen</h2>
 </div>
 <div>
     
-    <h3><a name="this&#95;post&#95;not&#95;fetch&#95;enough"></a>This Post Not Fetch Enough</h3><p>some stuff happened</p><blockquote><p>and a quote appeared </p></blockquote>
+    <h3><a name="install&#95;cryogen"></a>Install Cryogen</h3><p>Install Cryogen</p><pre><code class="bash">lein new cryogen my-blog
+cd my-blog
+lein ring server
+</code></pre><h3><a name="修改cryogen配置参数"></a>修改Cryogen配置参数</h3><p>编辑resources/templates/config.edn,修改配置参数blog-prefix为空。 修改后，需要运行lein ring server，这时会自动更新resources/public目录下的文件</p><h3><a name="register&#95;and&#95;git&#95;a&#95;github&#95;pages&#95;account&#95;robinchenyu.github.io"></a>register and git a github pages account robinchenyu.github.io</h3>  <br /><h3><a name="克隆robinchenyu.github.io项目到本地"></a>克隆robinchenyu.github.io项目到本地</h3>  <br /><p>克隆项目到本地后，拷贝templates/public下的所有文件到项目中，然后测试 https://robinchenyu.github.io</p>
 </div>
 
 <div id="post-tags">
     <b>Tags: </b>
     
-    <a href="/tags-output/not fetch/">not fetch</a>
+    <a href="/tags-output/cryogen/">cryogen</a>
+    
+    <a href="/tags-output/github/">github</a>
+    
+    <a href="/tags-output/clojure/">clojure</a>
     
 </div>
 
@@ -106,7 +113,7 @@
                         
                         <li><a href="/posts-output/2014-11-04-second-post/">Yet Another Post</a></li>
                         
-                        <li><a href="/posts-output/2014-03-10-first-post/">A Post</a></li>
+                        <li><a href="/posts-output/2014-03-10-first-post/">On deploying post with github pages and cryogen</a></li>
                         
                     </ul>
                 </div>
@@ -120,7 +127,9 @@
                         
                         <li><a href="/tags-output/very fetch/">very fetch</a></li>
                         
-                        <li><a href="/tags-output/not fetch/">not fetch</a></li>
+                        <li><a href="/tags-output/github/">github</a></li>
+                        
+                        <li><a href="/tags-output/clojure/">clojure</a></li>
                         
                     </ul>
                 </div>
