@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>My Awesome Blog</title>
-    <link rel="canonical" href="http://blogawesome.com/">
+    <title>My Blog</title>
+    <link rel="canonical" href="http://robinchenyu.github.io/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -24,7 +24,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">My Awesome Blog</a>
+            <a class="navbar-brand" href="/">My Blog</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -54,27 +54,59 @@
 <div id="post">
     <div class="post-header">
     <div id="post-meta" class="row">
-        <div class="col-lg-6">2017年1月28日</div>
+        <div class="col-lg-6">2017年1月29日</div>
         
     </div>
-    <h2>利用github pages编写博客</h2>
+    <h2>Clojure Cookbook: Clojure多重方法</h2>
 </div>
 <div>
     
-    <h3><a name="安装cryogen"></a>安装cryogen</h3><pre><code class="bash">lein new cryogen my-blog
-cd my-blog
-lein ring server
-</code></pre><h3><a name="修改cryogen配置参数"></a>修改Cryogen配置参数</h3><p>编辑resources/templates/config.edn,修改配置参数blog-prefix为空。 修改后，需要运行lein ring server，这样才会重新产生resources/public目录下的文件</p><h3><a name="register&#95;and&#95;git&#95;a&#95;github&#95;pages&#95;account&#95;robinchenyu.github.io"></a>register and git a github pages account robinchenyu.github.io</h3><p>参考: <a href='https://pages.github.com/'>pages.github.com</a></p><h3><a name="克隆robinchenyu.github.io项目到本地"></a>克隆robinchenyu.github.io项目到本地</h3><p>克隆项目到本地后，拷贝templates/public下的所有文件到项目中，然后测试 <a href='https://robinchenyu.github.io'>robinchenyu.github.io</a></p>
+    <p>在clojure语言中的多重方法定义, 先看一个最简单的实现方式:</p><pre><code class="clojure">&#40;defn area
+  &quot;计算多边形面积&quot;
+  &#91;shape&#93;
+  &#40;condp = &#40;:type shape&#41;
+    :triangle &#40;&#42; &#40;:base shape&#41; &#40;:height shape&#41; &#40;/ 1 2&#41;&#41;
+    :rectangle &#40;&#42; &#40;:length shape&#41; &#40;:width shape&#41;&#41;&#41;&#41;
+
+; 调用如下
+&#40;area {:type :triangle :base 2 :height 4}&#41;
+; =&gt; 4
+
+&#40;area {:type :rectangle :length 2 :width 4}&#41;
+; =&gt; 8
+</code></pre><p>用上面的方法可以实现函数调用分发，但是area定义有些繁琐，利用lisp语言的灵活性，可以用宏把area函数精简。Clojure语言有已经实现好的defmulti和defmethod宏。</p><pre><code class="clojure">&#40;defmulti area
+  &quot;计算多边形面积&quot;
+  :type&#41;                                        ; &#91;a&#93;
+
+&#40;defmethod area :rectangle
+&#91;shape&#93;
+  &#40;&#42; &#40;:length shape&#41; &#40;:width shape&#41;&#41;&#41;
+
+&#40;area {:type :rectangle :length 2 :width 4}&#41;
+; =&gt; 8
+
+;; 如果计算一个新类型面积
+&#40;area {:type :circle :radius 1}&#41;
+;; -&gt; IllegalArgumentException No method in multimethod `area` for 
+;;    dispatch value: :circle
+
+&#40;defmethod area :circle &#91;shape&#93;
+  &#40;&#42; &#40;. Math PI&#41; &#40;:radius shape&#41; &#40;:radius shape&#41;&#41;&#41;
+  
+&#40;area {:type :circle :radius 1}&#41;
+; =&gt; 3.141592653589793
+</code></pre><ul><li>[a] 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义<pre><code class="clojure">&#40;defmulti area &#40;fn &#91;shape&#93; &#40;:type shape&#41;&#41;&#41;
+</code></pre>同时，由于通过函数分发，增加了灵活性，defmulti是可以支持多参数分发<a href='https://clojuredocs.org/clojure.core/defmulti'>clojuredocs文档</a></li></ul>
 </div>
 
 <div id="post-tags">
     <b>Tags: </b>
     
-    <a href="/tags-output/cryogen/">cryogen</a>
-    
-    <a href="/tags-output/github/">github</a>
-    
     <a href="/tags-output/clojure/">clojure</a>
+    
+    <a href="/tags-output/cookbook/">cookbook</a>
+    
+    <a href="/tags-output/defmulti/">defmulti</a>
     
 </div>
 
@@ -84,7 +116,7 @@ lein ring server
     <div id="prev-next">
         
         
-        <a class="right" href="/posts-output/2016-01-07-docs/">Quick Start Guide &raquo;</a>
+        <a class="right" href="/posts-output/2017-01-28-deploy-github-pages/">github pages搭建博客 &raquo;</a>
         
     </div>
 </div>
@@ -97,9 +129,7 @@ lein ring server
                 <h3>Links</h3>
                 <ul id="links">
                     <li><a href="http://cryogenweb.org/docs/home.html">Cryogen Docs</a></li>
-                    <li><a href="http://carmenla.me/blog/archives">Carmen's Blog</a></li>
-                    
-                    <li><a href="/pages-output/another-page/">Another Page</a></li>
+                    <!-- <li><a href="http://carmenla.me/blog/archives">Carmen's Blog</a></li> -->
                     
                 </ul>
                 
@@ -107,11 +137,11 @@ lein ring server
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2017-01-28-deploy-github-pages/">利用github pages编写博客</a></li>
+                        <li><a href="/posts-output/2017-01-29-defmulti-clojure/">Clojure Cookbook: Clojure多重方法</a></li>
+                        
+                        <li><a href="/posts-output/2017-01-28-deploy-github-pages/">github pages搭建博客</a></li>
                         
                         <li><a href="/posts-output/2016-01-07-docs/">Quick Start Guide</a></li>
-                        
-                        <li><a href="/posts-output/2014-11-04-second-post/">Yet Another Post</a></li>
                         
                     </ul>
                 </div>
@@ -121,13 +151,15 @@ lein ring server
                     <h3>Tags</h3>
                     <ul>
                         
+                        <li><a href="/tags-output/clojure/">clojure</a></li>
+                        
+                        <li><a href="/tags-output/cookbook/">cookbook</a></li>
+                        
+                        <li><a href="/tags-output/defmulti/">defmulti</a></li>
+                        
                         <li><a href="/tags-output/cryogen/">cryogen</a></li>
                         
                         <li><a href="/tags-output/github/">github</a></li>
-                        
-                        <li><a href="/tags-output/clojure/">clojure</a></li>
-                        
-                        <li><a href="/tags-output/very fetch/">very fetch</a></li>
                         
                     </ul>
                 </div>
@@ -135,7 +167,7 @@ lein ring server
             </div>
         </div>
     </div>
-    <footer>Copyright &copy; 2017 Bob Bobbert
+    <footer>Copyright &copy; 2017 Chen Yu
         <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>

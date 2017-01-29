@@ -1,31 +1,86 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>
 <channel>
-<atom:link href='http://blogawesome.com/' rel='self' type='application/rss+xml'/>
+<atom:link href='http://robinchenyu.github.io' rel='self' type='application/rss+xml'/>
 <title>
-My Awesome Blog
+My Blog
 </title>
 <link>
-http://blogawesome.com/
+http://robinchenyu.github.io
 </link>
 <description>
-This blog is awesome
+This blog is for my practice trace
 </description>
 <lastBuildDate>
-Sun, 29 Jan 2017 10:45:29 +0530
+Sun, 29 Jan 2017 12:46:13 +0530
 </lastBuildDate>
 <generator>
 clj-rss
 </generator>
 <item>
 <guid>
-http://blogawesome.com/posts-output/2017-01-28-deploy-github-pages/
+http://robinchenyu.github.io/posts-output/2017-01-29-defmulti-clojure/
 </guid>
 <link>
-http://blogawesome.com/posts-output/2017-01-28-deploy-github-pages/
+http://robinchenyu.github.io/posts-output/2017-01-29-defmulti-clojure/
 </link>
 <title>
-利用github pages编写博客
+Clojure Cookbook: Clojure多重方法
+</title>
+<description>
+&lt;p&gt;在clojure语言中的多重方法定义, 先看一个最简单的实现方式:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&amp;#40;defn area
+  &amp;quot;计算多边形面积&amp;quot;
+  &amp;#91;shape&amp;#93;
+  &amp;#40;condp = &amp;#40;:type shape&amp;#41;
+    :triangle &amp;#40;&amp;#42; &amp;#40;:base shape&amp;#41; &amp;#40;:height shape&amp;#41; &amp;#40;/ 1 2&amp;#41;&amp;#41;
+    :rectangle &amp;#40;&amp;#42; &amp;#40;:length shape&amp;#41; &amp;#40;:width shape&amp;#41;&amp;#41;&amp;#41;&amp;#41;
+
+; 调用如下
+&amp;#40;area {:type :triangle :base 2 :height 4}&amp;#41;
+; =&amp;gt; 4
+
+&amp;#40;area {:type :rectangle :length 2 :width 4}&amp;#41;
+; =&amp;gt; 8
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用上面的方法可以实现函数调用分发，但是area定义有些繁琐，利用lisp语言的灵活性，可以用宏把area函数精简。Clojure语言有已经实现好的defmulti和defmethod宏。&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&amp;#40;defmulti area
+  &amp;quot;计算多边形面积&amp;quot;
+  :type&amp;#41;                                        ; &amp;#91;a&amp;#93;
+
+&amp;#40;defmethod area :rectangle
+&amp;#91;shape&amp;#93;
+  &amp;#40;&amp;#42; &amp;#40;:length shape&amp;#41; &amp;#40;:width shape&amp;#41;&amp;#41;&amp;#41;
+
+&amp;#40;area {:type :rectangle :length 2 :width 4}&amp;#41;
+; =&amp;gt; 8
+
+;; 如果计算一个新类型面积
+&amp;#40;area {:type :circle :radius 1}&amp;#41;
+;; -&amp;gt; IllegalArgumentException No method in multimethod `area` for 
+;;    dispatch value: :circle
+
+&amp;#40;defmethod area :circle &amp;#91;shape&amp;#93;
+  &amp;#40;&amp;#42; &amp;#40;. Math PI&amp;#41; &amp;#40;:radius shape&amp;#41; &amp;#40;:radius shape&amp;#41;&amp;#41;&amp;#41;
+  
+&amp;#40;area {:type :circle :radius 1}&amp;#41;
+; =&amp;gt; 3.141592653589793
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&lt;li&gt;[a] 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&amp;#40;defmulti area &amp;#40;fn &amp;#91;shape&amp;#93; &amp;#40;:type shape&amp;#41;&amp;#41;&amp;#41;
+&lt;/code&gt;&lt;/pre&gt;同时，由于通过函数分发，增加了灵活性，defmulti是可以支持多参数分发&lt;a href='https://clojuredocs.org/clojure.core/defmulti'&gt;clojuredocs文档&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Sun, 29 Jan 2017 00:00:00 +0530
+</pubDate>
+</item>
+<item>
+<guid>
+http://robinchenyu.github.io/posts-output/2017-01-28-deploy-github-pages/
+</guid>
+<link>
+http://robinchenyu.github.io/posts-output/2017-01-28-deploy-github-pages/
+</link>
+<title>
+github pages搭建博客
 </title>
 <description>
 &lt;h3&gt;&lt;a name=&quot;安装cryogen&quot;&gt;&lt;/a&gt;安装cryogen&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;lein new cryogen my-blog
@@ -42,10 +97,10 @@ Sat, 28 Jan 2017 00:00:00 +0530
 </item>
 <item>
 <guid>
-http://blogawesome.com/posts-output/2016-01-07-docs/
+http://robinchenyu.github.io/posts-output/2016-01-07-docs/
 </guid>
 <link>
-http://blogawesome.com/posts-output/2016-01-07-docs/
+http://robinchenyu.github.io/posts-output/2016-01-07-docs/
 </link>
 <title>
 Quick Start Guide
@@ -114,26 +169,6 @@ Quick Start Guide
 </enclosure>
 <pubDate>
 Thu, 07 Jan 2016 00:00:00 +0530
-</pubDate>
-</item>
-<item>
-<guid>
-http://blogawesome.com/posts-output/2014-11-04-second-post/
-</guid>
-<link>
-http://blogawesome.com/posts-output/2014-11-04-second-post/
-</link>
-<title>
-Yet Another Post
-</title>
-<description>
-&lt;h3&gt;&lt;a name=&quot;this&amp;#95;post&amp;#95;so&amp;#95;fetch&quot;&gt;&lt;/a&gt;This Post So Fetch&lt;/h3&gt;&lt;p&gt;some more stuff happened&lt;/p&gt;
-</description>
-<enclosure>
-
-</enclosure>
-<pubDate>
-Tue, 04 Nov 2014 00:00:00 +0530
 </pubDate>
 </item>
 </channel>
