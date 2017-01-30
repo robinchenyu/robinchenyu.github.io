@@ -1,0 +1,12 @@
+#+TITLE:       first-blog
+#+AUTHOR:
+#+EMAIL:       chenyu@WIN-I6L2M7OQHVP
+#+DATE:        2017-01-30 Mon
+#+URI:         /blog/%y/%m/%d/first-blog
+#+KEYWORDS:    emacs, org-page
+#+TAGS:        emacs, org-page
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: nothing
+
+* My First Blog
