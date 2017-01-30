@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>My Blog</title>
-    <link rel="canonical" href="http://robinchenyu.github.io">
+    <title>My Blog: Posts Tagged &quot;cryogen&quot;</title>
+    <link rel="canonical" href="http://robinchenyu.github.io/tags-output/cryogen/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -28,7 +28,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/">Home</a></li>
+                <li ><a href="/">Home</a></li>
                 <li
                 ><a href="/archives/">Archives</a></li>
                 
@@ -51,62 +51,21 @@
         <div class="col-lg-9">
             <div id="content">
                 
-<div id="post">
-    
-    <div class="post-header">
-        <h2>Clojure Cookbook: Clojure多重方法</h2>
-        <div id="post-meta">
-            
-            <div class="date">2017年1月29日</div>
-        </div>
+<div id="posts-by-tag">
+    <div id="page-header">
+        <h2>Posts Tagged &quot;cryogen&quot;</h2>
     </div>
-    <p>在clojure语言中的多重方法定义, 先看一个最简单的实现方式:</p><pre><code class="clojure">(defn area
-  "计算多边形面积"
-  [shape]
-  (condp = (:type shape)
-    :triangle (* (:base shape) (:height shape) (/ 1 2))
-    :rectangle (* (:length shape) (:width shape))))
-
-; 调用如下
-(area {:type :triangle :base 2 :height 4})
-; =&gt; 4
-
-(area {:type :rectangle :length 2 :width 4})
-; =&gt; 8
-</code></pre>
-    <a href="/posts-output/2017-01-29-defmulti-clojure/">Continue reading &#8594;</a>
-    <hr>
+    <ul>
     
-    <div class="post-header">
-        <h2>github pages搭建博客</h2>
-        <div id="post-meta">
-            
-            <div class="date">2017年1月28日</div>
-        </div>
-    </div>
-    <h3><a name="安装cryogen"></a>安装cryogen</h3><pre><code class="bash">lein new cryogen myblog
-cd myblog
-lein ring server
-</code></pre>
-    <a href="/posts-output/2017-01-28-deploy-github-pages/">Continue reading &#8594;</a>
-    <hr>
+        <li>
+            <a href="/posts-output/2017-01-28-deploy-github-pages/">github pages搭建博客</a>
+        </li>
     
-    <div class="post-header">
-        <h2>Quick Start Guide</h2>
-        <div id="post-meta">
-            
-            <div class="date">2016年1月7日</div>
-        </div>
-    </div>
-    <p>This intro only documents a subset of Cryogen's features. For additional documentation please see the <a href="http://cryogenweb.org">cryogen site</a>.</p><h2><a name="features"></a>Features</h2>
-    <a href="/posts-output/2016-01-07-docs/">Continue reading &#8594;</a>
-    <hr>
+        <li>
+            <a href="/posts-output/2016-01-07-docs/">Quick Start Guide</a>
+        </li>
     
-
-    <div id="prev-next">
-        
-        
-    </div>
+    </ul>
 </div>
 
             </div>
