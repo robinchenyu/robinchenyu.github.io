@@ -74,14 +74,16 @@ git commit -m &quot;add source files&quot;
 git branch source
 git checkout source
 git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git branch --set-upstream-to=origin/source source
 git push source origin
 <h2></code></pre></h2>添加html文件到master分支<pre><code class="bash">cd &#126;/myblog/resources/public
 git init
 git add &#42;
 git commit -m &quot;add html files&quot;
 git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git branch --set-upstream-to=origin/master master
 git push master origin
-</code></pre></p><p>然后测试 <a href='https://robinchenyu.github.io'>robinchenyu.github.io</a></p><h3><a name="域名绑定"></a>域名绑定</h3><ol><li>在github.com博客项目中根目录下新加CNAME文件，文件内容为新域名   如: blogcn.cn</li><li>在购买的域名中设置DNS服务器   f1g1ns1.dnspod.net   f1g1ns2.dnspod.net </li><li>在DNSPod中添加github pages的域名<ul><li>先添加一个CNAME，主机记录写@，后面记录值写上你的username.github.io</li><li>再添加一个CNAME，主机记录写www，后面记录值也是username.github.io   把username替换为你的帐户名</li></ul></li></ol>
+</code></pre></p><h1><a name="then&#95;merge&#95;with&#95;github&#95;page&#95;files"></a>then merge with github page files</h1><p>git checkout master</p><p>然后测试 <a href='http://blog912.cn'>robinchenyu.github.io</a></p><h3><a name="域名绑定"></a>域名绑定</h3><ol><li>在github.com博客项目中根目录下新加CNAME文件，文件内容为新域名   如: blogcn.cn</li><li>在购买的域名中设置DNS服务器   f1g1ns1.dnspod.net   f1g1ns2.dnspod.net </li><li>在DNSPod中添加github pages的域名<ul><li>先添加一个CNAME，主机记录写@，后面记录值写上你的username.github.io</li><li>再添加一个CNAME，主机记录写www，后面记录值也是username.github.io   把username替换为你的帐户名</li></ul></li></ol>
 </div>
 
 <div id="post-tags">
