@@ -39,6 +39,7 @@ git commit -m "add source files"
 git branch source
 git checkout source
 git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git branch --set-upstream-to=origin/source source
 git push source origin
 ```
 --------------------------------------------
@@ -49,11 +50,16 @@ git init
 git add *
 git commit -m "add html files"
 git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git branch --set-upstream-to=origin/master master
 git push master origin
 ```
 
+# then merge with github page files
+
+git checkout master
+
 然后测试
-[robinchenyu.github.io](https://robinchenyu.github.io)
+[robinchenyu.github.io](http://blog912.cn)
 
 ### 域名绑定
 
