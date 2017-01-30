@@ -5,8 +5,13 @@
 ### 安装cryogen
 
 ```bash
-lein new cryogen my-blog
-cd my-blog
+lein new cryogen myblog
+cd myblog
+lein ring server
+```
+创建一个脚本blog.cmd，并放入到PATH指向的目录下
+```cmd
+cd c:/msys64/home/chenyu/myblog
 lein ring server
 ```
 
@@ -21,7 +26,33 @@ lein ring server
 
 ### 克隆robinchenyu.github.io项目到本地
 
-克隆项目到本地后，拷贝templates/public下的所有文件到项目中，然后测试
+克隆项目到本地后，把templates/public下的所有文件放到项目中master分支；并把myblog目录下的工程文件全部放入到source分支
+
+---------------------------------------------
+添加工程文件到source分支
+```bash
+cd ~/myblog
+git init
+git add *
+git add .gitignore
+git commit -m "add source files"
+git branch source
+git checkout source
+git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git push source origin
+```
+--------------------------------------------
+添加html文件到master分支
+```bash
+cd ~/myblog/resources/public
+git init
+git add *
+git commit -m "add html files"
+git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git push master origin
+```
+
+然后测试
 [robinchenyu.github.io](https://robinchenyu.github.io)
 
 ### 域名绑定
