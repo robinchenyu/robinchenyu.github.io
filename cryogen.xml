@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>
+<channel>
+<atom:link href='http://robinchenyu.github.io' rel='self' type='application/rss+xml'/>
+<title>
+My Blog
+</title>
+<link>
+http://robinchenyu.github.io
+</link>
+<description>
+This blog is for my practice trace
+</description>
+<lastBuildDate>
+Mon, 30 Jan 2017 16:31:36 +0530
+</lastBuildDate>
+<generator>
+clj-rss
+</generator>
+<item>
+<guid>
+http://robinchenyu.github.io/posts-output/2017-01-28-deploy-github-pages/
+</guid>
+<link>
+http://robinchenyu.github.io/posts-output/2017-01-28-deploy-github-pages/
+</link>
+<title>
+github pages搭建博客
+</title>
+<description>
+&lt;h3&gt;&lt;a name=&quot;安装cryogen&quot;&gt;&lt;/a&gt;安装cryogen&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;lein new cryogen myblog
+cd myblog
+lein ring server
+&lt;/code&gt;&lt;/pre&gt;创建一个脚本blog.cmd，并放入到PATH指向的目录下&lt;pre&gt;&lt;code class=&quot;cmd&quot;&gt;cd c:/msys64/home/chenyu/myblog
+lein ring server
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a name=&quot;修改cryogen配置参数&quot;&gt;&lt;/a&gt;修改Cryogen配置参数&lt;/h3&gt;&lt;p&gt;编辑resources/templates/config.edn,修改配置参数blog-prefix为空。 修改后，需要运行lein ring server，这样才会重新产生resources/public目录下的文件&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;register&amp;#95;and&amp;#95;git&amp;#95;a&amp;#95;github&amp;#95;pages&amp;#95;account&amp;#95;robinchenyu.github.io&quot;&gt;&lt;/a&gt;register and git a github pages account robinchenyu.github.io&lt;/h3&gt;&lt;p&gt;参考: &lt;a href='https://pages.github.com/'&gt;pages.github.com&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;克隆robinchenyu.github.io项目到本地&quot;&gt;&lt;/a&gt;克隆robinchenyu.github.io项目到本地&lt;/h3&gt;&lt;p&gt;克隆项目到本地后，把templates/public下的所有文件放到项目中master分支；并把myblog目录下的工程文件全部放入到source分支&lt;h2&gt;&lt;/h2&gt;添加工程文件到source分支&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;cd &amp;#126;/myblog
+git init
+git add &amp;#42;
+git add .gitignore
+git commit -m &amp;quot;add source files&amp;quot;
+git branch source
+git checkout source
+git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git push source origin
+&lt;h2&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/h2&gt;添加html文件到master分支&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;cd &amp;#126;/myblog/resources/public
+git init
+git add &amp;#42;
+git commit -m &amp;quot;add html files&amp;quot;
+git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git push master origin
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;然后测试 &lt;a href='https://robinchenyu.github.io'&gt;robinchenyu.github.io&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;域名绑定&quot;&gt;&lt;/a&gt;域名绑定&lt;/h3&gt;&lt;ol&gt;&lt;li&gt;在github.com博客项目中根目录下新加CNAME文件，文件内容为新域名   如: blogcn.cn&lt;/li&gt;&lt;li&gt;在购买的域名中设置DNS服务器   f1g1ns1.dnspod.net   f1g1ns2.dnspod.net &lt;/li&gt;&lt;li&gt;在DNSPod中添加github pages的域名&lt;ul&gt;&lt;li&gt;先添加一个CNAME，主机记录写@，后面记录值写上你的username.github.io&lt;/li&gt;&lt;li&gt;再添加一个CNAME，主机记录写www，后面记录值也是username.github.io   把username替换为你的帐户名&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ol&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Sat, 28 Jan 2017 00:00:00 +0530
+</pubDate>
+</item>
+<item>
+<guid>
+http://robinchenyu.github.io/posts-output/2016-01-07-docs/
+</guid>
+<link>
+http://robinchenyu.github.io/posts-output/2016-01-07-docs/
+</link>
+<title>
+Quick Start Guide
+</title>
+<description>
+&lt;p&gt;This intro only documents a subset of Cryogen's features. For additional documentation please see the &lt;a href='http://cryogenweb.org'&gt;cryogen site&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;features&quot;&gt;&lt;/a&gt;Features&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Blog posts and pages with Markdown (default) or AsciiDoc&lt;/li&gt;&lt;li&gt;Tags&lt;/li&gt;&lt;li&gt;Table of contents generation&lt;/li&gt;&lt;li&gt;Plain HTML page templates&lt;/li&gt;&lt;li&gt;Code syntax highlighting&lt;/li&gt;&lt;li&gt;Disqus support&lt;/li&gt;&lt;li&gt;Sitemap generation&lt;/li&gt;&lt;li&gt;RSS feed generation&lt;/li&gt;&lt;li&gt;Sass/SCSS compilation&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;&lt;a name=&quot;prerequisites&quot;&gt;&lt;/a&gt;Prerequisites&lt;/h2&gt;&lt;p&gt;You will need &lt;a href='https://github.com/technomancy/leiningen'&gt;Leiningen&lt;/a&gt; 2.5.0 or above installed.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;usage&quot;&gt;&lt;/a&gt;Usage&lt;/h2&gt;&lt;h3&gt;&lt;a name=&quot;creating&amp;#95;a&amp;#95;new&amp;#95;site&quot;&gt;&lt;/a&gt;Creating a New Site&lt;/h3&gt;&lt;p&gt;A new site can be created using the Cryogen template as follows:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;lein new cryogen my-blog
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a name=&quot;running&amp;#95;the&amp;#95;server&quot;&gt;&lt;/a&gt;Running the Server&lt;/h3&gt;&lt;p&gt;The web server can be started from the &lt;code&gt;my-blog&lt;/code&gt; directory using the &lt;code&gt;lein-ring&lt;/code&gt; plugin:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;lein ring server
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The server will watch for changes in the &lt;code&gt;resources/templates&lt;/code&gt; folder and recompile the content automatically.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;site&amp;#95;configuration&quot;&gt;&lt;/a&gt;Site Configuration&lt;/h3&gt;&lt;p&gt;The site configuration file is found at &lt;code&gt;templates/config.edn&lt;/code&gt;, this file looks as follows:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;{:site-title         &amp;quot;My Awesome Blog&amp;quot;
+ :author             &amp;quot;Bob Bobbert&amp;quot;
+ :description        &amp;quot;This blog is awesome&amp;quot;
+ :site-url           &amp;quot;http://blogawesome.com/&amp;quot;
+ :post-root          &amp;quot;posts&amp;quot;
+ :page-root          &amp;quot;pages&amp;quot;
+ :post-root-uri      &amp;quot;posts-output&amp;quot;
+ :page-root-uri      &amp;quot;pages-output&amp;quot;
+ :tag-root-uri       &amp;quot;tags-output&amp;quot;
+ :blog-prefix        &amp;quot;/blog&amp;quot;
+ :rss-name           &amp;quot;feed.xml&amp;quot;
+ :rss-filters        &amp;#91;&amp;quot;cryogen&amp;quot;&amp;#93;
+ :recent-posts       3
+ :post-date-format   &amp;quot;yyyy-MM-dd&amp;quot;
+ :sass-src           nil
+ :sass-dest          nil
+ :theme              &amp;quot;blue&amp;quot;
+ :resources          &amp;#91;&amp;quot;img&amp;quot;&amp;#93;
+ :keep-files         &amp;#91;&amp;quot;.git&amp;quot;&amp;#93;
+ :disqus?            false
+ :disqus-shortname   &amp;quot;&amp;quot;
+ :ignored-files      &amp;#91;#&amp;quot;\.#.&amp;#42;&amp;quot; #&amp;quot;.&amp;#42;\.swp$&amp;quot;&amp;#93;
+ :posts-per-page     5
+ :blocks-per-preview 2
+ :previews?          false
+ :clean-urls?        true}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;For information about each key please see the &lt;a href='http://cryogenweb.org/docs/configuration.html'&gt;&quot;Configuration&quot;&lt;/a&gt; portion of the Cryogen documentation site.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;switching&amp;#95;between&amp;#95;markdown&amp;#95;and&amp;#95;asciidoc&quot;&gt;&lt;/a&gt;Switching between Markdown and AsciiDoc&lt;/h3&gt;&lt;p&gt;Cryogen comes with Markdown support as default. If you want to use AsciiDoc instead, open the &lt;code&gt;project.clj&lt;/code&gt; in your created blog (e.g. &lt;code&gt;my-blog&lt;/code&gt;), and change the line in &lt;code&gt;:dependencies&lt;/code&gt; that says &lt;code&gt;cryogen-markdown&lt;/code&gt; to &lt;code&gt;cryogen-asciidoc&lt;/code&gt;. Instead of looking for files ending in &lt;code&gt;.md&lt;/code&gt; in the &lt;code&gt;resources/templates/md&lt;/code&gt; directory, the compiler will now look for files ending in &lt;code&gt;.asc&lt;/code&gt; in the &lt;code&gt;resources/templates/asc&lt;/code&gt; directory.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;selecting&amp;#95;a&amp;#95;theme&quot;&gt;&lt;/a&gt;Selecting a Theme&lt;/h3&gt;&lt;p&gt;The Cryogen template comes with two themes in the &lt;code&gt;resources/templates/themes&lt;/code&gt; folder. To change your blog's theme, change the value of the &lt;code&gt;:theme&lt;/code&gt; key in &lt;code&gt;config.edn&lt;/code&gt;.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;customizing&amp;#95;layouts&quot;&gt;&lt;/a&gt;Customizing Layouts&lt;/h3&gt;&lt;p&gt;Cryogen uses &lt;a href='https://github.com/yogthos/Selmer'&gt;Selmer&lt;/a&gt; templating engine for layouts. Please refer to its documentation to see the supported tags and filters for the layouts.&lt;/p&gt;&lt;p&gt;The layouts are contained in the &lt;code&gt;resources/templates/themes/{theme}/html&lt;/code&gt; folder of the project. By default, the &lt;code&gt;base.html&lt;/code&gt; layout is used to provide the general layout for the site. This is where you would add static resources such as CSS and JavaScript assets as well as define headers and footers for your site.&lt;/p&gt;&lt;p&gt;Each page layout should have a name that matches the &lt;code&gt;:layout&lt;/code&gt; key in the page metadata and end with &lt;code&gt;.html&lt;/code&gt;. Page layouts extend the base layout and should only contain the content relevant to the page inside the &lt;code&gt;content&lt;/code&gt; block. For example, the &lt;code&gt;tag&lt;/code&gt; layout is located in &lt;code&gt;tag.html&lt;/code&gt; and looks as follows:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;{% extends &amp;quot;templates/html/layouts/base.html&amp;quot; %}
+{% block content %}
+&amp;lt;div id=&amp;quot;posts-by-tag&amp;quot;&amp;gt;
+    &amp;lt;h2&amp;gt;Posts tagged {{name}}&amp;lt;/h2&amp;gt;
+    &amp;lt;ul&amp;gt;
+    {% for post in posts %}
+        &amp;lt;li&amp;gt;
+            &amp;lt;a href=&amp;quot;{{post.uri}}&amp;quot;&amp;gt;{{post.title}}&amp;lt;/a&amp;gt;
+        &amp;lt;/li&amp;gt;
+    {% endfor %}
+    &amp;lt;/ul&amp;gt;
+&amp;lt;/div&amp;gt;
+{% endblock %}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a name=&quot;code&amp;#95;syntax&amp;#95;highlighting&quot;&gt;&lt;/a&gt;Code Syntax Highlighting&lt;/h3&gt;&lt;p&gt;Cryogen uses &lt;a href='https://highlightjs.org/'&gt;Highlight.js&lt;/a&gt; for code syntax highlighting. You can add more languages by replacing &lt;code&gt;templates/js/highlight.pack.js&lt;/code&gt; with a customized package from &lt;a href='https://highlightjs.org/download/'&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;The &lt;code&gt; initHighlightingOnLoad&lt;/code&gt; function is called in &lt;code&gt;{theme}/html/base.html&lt;/code&gt;.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&amp;lt;script&amp;gt;hljs.initHighlightingOnLoad&amp;#40;&amp;#41;;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a name=&quot;deploying&amp;#95;your&amp;#95;site&quot;&gt;&lt;/a&gt;Deploying Your Site&lt;/h2&gt;&lt;p&gt;The generated static content will be found under the &lt;code&gt;resources/public&lt;/code&gt; folder. Simply copy the content to a static folder for a server such as Nginx or Apache and your site is now ready for service.&lt;/p&gt;&lt;p&gt;A sample Nginx configuration that's placed in &lt;code&gt;/etc/nginx/sites-available/default&lt;/code&gt; can be seen below:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;server {
+  listen 80 default&amp;#95;server;
+  listen &amp;#91;::&amp;#93;:80 default&amp;#95;server ipv6only=on;
+  server&amp;#95;name localhost &amp;lt;yoursite.com&amp;gt; &amp;lt;www.yoursite.com&amp;gt;;
+
+  access&amp;#95;log  /var/log/blog&amp;#95;access.log;
+  error&amp;#95;log   /var/log/blog&amp;#95;error.log;
+
+  location / {
+    alias       /var/blog/;
+    error&amp;#95;page  404 = /404.html;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Simply set &lt;code&gt;yoursite.com&lt;/code&gt; to the domain of your site in the above configuration and ensure the static content is available at &lt;code&gt;/var/blog/&lt;/code&gt;. Finally, place your custom error page in the &lt;code&gt;/var/blog/404.html&lt;/code&gt; file.&lt;/p&gt;&lt;p&gt;More information on deployment can be found &lt;a href='http://cryogenweb.org/docs/deploying-to-github-pages.html'&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;some&amp;#95;sites&amp;#95;made&amp;#95;with&amp;#95;cryogen&quot;&gt;&lt;/a&gt;Some Sites Made With Cryogen&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;&lt;a href='http://carmenla.me/blog/index.html'&gt;Creator's blog&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://cryogenweb.org'&gt;Cryogen Documentation Site&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://yogthos.net/'&gt;Yogthos' blog&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://www.clojure.tn'&gt;Clojure :in Tunisia&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://dl1ely.github.io'&gt;dl1ely.github.io&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://jonase.github.io/nil-recur'&gt;nil/recur&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://tangrammer.github.io/'&gt;on the clojure move&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://blog.jethrokuan.com/'&gt;cognizance&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://www.agynamix.de'&gt;AGYNAMIX Site &amp; Blog&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://eresident.me'&gt;e-Resident Me&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='http://www.chadstovern.com'&gt;Chad Stovern's blog&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='https://greative.jp/'&gt;Greative&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Thu, 07 Jan 2016 00:00:00 +0530
+</pubDate>
+</item>
+</channel>
+</rss>

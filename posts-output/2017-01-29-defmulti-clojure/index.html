@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>My Blog: Clojure Cookbook: Clojure多重方法</title>
+    <link rel="canonical" href="http://robinchenyu.github.io/posts-output/2017-01-29-defmulti-clojure/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
+    <link href="/css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">My Blog</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/">Home</a></li>
+                <li
+                ><a href="/archives/">Archives</a></li>
+                
+                <li
+                >
+                <a href="/pages-output/about/">About</a>
+                </li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">2017年1月29日</div>
+        
+    </div>
+    <h2>Clojure Cookbook: Clojure多重方法</h2>
+</div>
+<div>
+    
+    <p>在clojure语言中的多重方法定义, 先看一个最简单的实现方式:</p><pre><code class="clojure">&#40;defn area
+  &quot;计算多边形面积&quot;
+  &#91;shape&#93;
+  &#40;condp = &#40;:type shape&#41;
+    :triangle &#40;&#42; &#40;:base shape&#41; &#40;:height shape&#41; &#40;/ 1 2&#41;&#41;
+    :rectangle &#40;&#42; &#40;:length shape&#41; &#40;:width shape&#41;&#41;&#41;&#41;
+
+; 调用如下
+&#40;area {:type :triangle :base 2 :height 4}&#41;
+; =&gt; 4
+
+&#40;area {:type :rectangle :length 2 :width 4}&#41;
+; =&gt; 8
+</code></pre><p>用上面的方法可以实现函数调用分发，但是area定义有些繁琐，利用lisp语言的灵活性，可以用宏把area函数精简。Clojure语言有已经实现好的defmulti和defmethod宏。</p><pre><code class="clojure">&#40;defmulti area
+  &quot;计算多边形面积&quot;
+  :type&#41;                                        ; &#91;a&#93;
+
+&#40;defmethod area :rectangle
+&#91;shape&#93;
+  &#40;&#42; &#40;:length shape&#41; &#40;:width shape&#41;&#41;&#41;
+
+&#40;area {:type :rectangle :length 2 :width 4}&#41;
+; =&gt; 8
+
+;; 如果计算一个新类型面积
+&#40;area {:type :circle :radius 1}&#41;
+;; -&gt; IllegalArgumentException No method in multimethod `area` for 
+;;    dispatch value: :circle
+
+&#40;defmethod area :circle &#91;shape&#93;
+  &#40;&#42; &#40;. Math PI&#41; &#40;:radius shape&#41; &#40;:radius shape&#41;&#41;&#41;
+  
+&#40;area {:type :circle :radius 1}&#41;
+; =&gt; 3.141592653589793
+</code></pre><ul><li>[a] 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义<pre><code class="clojure">&#40;defmulti area &#40;fn &#91;shape&#93; &#40;:type shape&#41;&#41;&#41;
+</code></pre>同时，由于通过函数分发，增加了灵活性，defmulti是可以支持多参数分发<a href='https://clojuredocs.org/clojure.core/defmulti'>clojuredocs文档</a></li></ul>
+</div>
+
+<div id="post-tags">
+    <b>Tags: </b>
+    
+    <a href="/tags-output/clojure/">clojure</a>
+    
+    <a href="/tags-output/cookbook/">cookbook</a>
+    
+    <a href="/tags-output/defmulti/">defmulti</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        
+        <a class="right" href="/posts-output/2017-01-28-deploy-github-pages/">github pages搭建博客 &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="http://cryogenweb.org/docs/home.html">Cryogen Docs</a></li>
+                    <!-- <li><a href="http://carmenla.me/blog/archives">Carmen's Blog</a></li> -->
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts-output/2017-01-29-defmulti-clojure/">Clojure Cookbook: Clojure多重方法</a></li>
+                        
+                        <li><a href="/posts-output/2017-01-28-deploy-github-pages/">github pages搭建博客</a></li>
+                        
+                        <li><a href="/posts-output/2016-01-07-docs/">Quick Start Guide</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Tags</h3>
+                    <ul>
+                        
+                        <li><a href="/tags-output/clojure/">clojure</a></li>
+                        
+                        <li><a href="/tags-output/cookbook/">cookbook</a></li>
+                        
+                        <li><a href="/tags-output/defmulti/">defmulti</a></li>
+                        
+                        <li><a href="/tags-output/cryogen/">cryogen</a></li>
+                        
+                        <li><a href="/tags-output/github/">github</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- <footer>Copyright &copy; 2017 Chen Yu -->
+    <!-- </footer> -->
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="/js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
