@@ -12,11 +12,32 @@ http://robinchenyu.github.io
 This blog is for my practice trace
 </description>
 <lastBuildDate>
-Mon, 30 Jan 2017 22:35:56 +0530
+Mon, 30 Jan 2017 23:38:59 +0530
 </lastBuildDate>
 <generator>
 clj-rss
 </generator>
+<item>
+<guid>
+http://robinchenyu.github.io/posts-output/2017-01-30-amule-install/
+</guid>
+<link>
+http://robinchenyu.github.io/posts-output/2017-01-30-amule-install/
+</link>
+<title>
+Amule Installation
+</title>
+<description>
+&lt;h2&gt;&lt;a name=&quot;amule&amp;#95;install&amp;#95;in&amp;#95;opensuse&quot;&gt;&lt;/a&gt;amule install in opensuse&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Goto &lt;a href='http://packman.links2linux.org/package/aMule/628648'&gt;Amule Download&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Install dependency &lt;br/&gt;    amule is depends on libcryptopp.&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;zypper in libcryptopp-5&amp;#95;6&amp;#95;2-0
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;&lt;a name=&quot;configuration&amp;#95;for&amp;#95;a&amp;#95;single&amp;#95;user&quot;&gt;&lt;/a&gt;Configuration for a single user&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Insert about:config in the address bar&lt;/li&gt;&lt;li&gt;Right click on the list, select New, then Boolean; insert network.protocol-handler.external.ed2k as Preference Name and true as Value&lt;/li&gt;&lt;li&gt;Now another right click, select New and String; insert network.protocol-handler.app.ed2k as Preference Name and /path/to/ed2k (path to where the file is installed on your system) as Value.&lt;/li&gt;&lt;/ul&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Mon, 30 Jan 2017 00:00:00 +0530
+</pubDate>
+</item>
 <item>
 <guid>
 http://robinchenyu.github.io/posts-output/2017-01-29-defmulti-clojure/

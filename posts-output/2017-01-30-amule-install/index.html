@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>My Blog: About</title>
-    <link rel="canonical" href="http://robinchenyu.github.io/pages-output/about/">
+    <title>My Blog: Amule Installation</title>
+    <link rel="canonical" href="http://robinchenyu.github.io/posts-output/2017-01-30-amule-install/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -33,7 +33,7 @@
                 ><a href="/archives/">Archives</a></li>
                 
                 <li
-                 class="active" >
+                >
                 <a href="/pages-output/about/">About</a>
                 </li>
                 
@@ -51,18 +51,40 @@
         <div class="col-lg-9">
             <div id="content">
                 
-<div id="custom-page">
-    <div id="page-header">
-        <h2>About</h2>
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">2017年1月30日</div>
+        
     </div>
+    <h2>Amule Installation</h2>
+</div>
+<div>
+    <ol class="content"><li><a href="#amule_install_in_opensuse">amule install in opensuse</a></li><li><a href="#configuration_for_a_single_user">Configuration for a single user</a></li></ol>
+    <h2><a name="amule&#95;install&#95;in&#95;opensuse"></a>amule install in opensuse</h2><ul><li>Goto <a href='http://packman.links2linux.org/package/aMule/628648'>Amule Download</a></li><li>Install dependency <br/>    amule is depends on libcryptopp.<pre><code class="bash">zypper in libcryptopp-5&#95;6&#95;2-0
+</code></pre></li></ul><h2><a name="configuration&#95;for&#95;a&#95;single&#95;user"></a>Configuration for a single user</h2><ul><li>Insert about:config in the address bar</li><li>Right click on the list, select New, then Boolean; insert network.protocol-handler.external.ed2k as Preference Name and true as Value</li><li>Now another right click, select New and String; insert network.protocol-handler.app.ed2k as Preference Name and /path/to/ed2k (path to where the file is installed on your system) as Value.</li></ul>
+</div>
+
+<div id="post-tags">
+    <b>Tags: </b>
     
-    <p>Write Blogs, remember something I have studied.</p>
+    <a href="/tags-output/linux/">linux</a>
+    
+    <a href="/tags-output/amule/">amule</a>
+    
+</div>
+
 
     <div id="prev-next">
         
         
+        <a class="right" href="/posts-output/2017-01-29-defmulti-clojure/">Clojure Cookbook: Clojure多重方法 &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>
