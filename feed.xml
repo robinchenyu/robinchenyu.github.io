@@ -12,7 +12,7 @@ http://robinchenyu.github.io
 This blog is for my practice trace
 </description>
 <lastBuildDate>
-Sun, 29 Jan 2017 18:05:00 +0530
+Mon, 30 Jan 2017 16:31:36 +0530
 </lastBuildDate>
 <generator>
 clj-rss
@@ -83,10 +83,27 @@ http://robinchenyu.github.io/posts-output/2017-01-28-deploy-github-pages/
 github pages搭建博客
 </title>
 <description>
-&lt;h3&gt;&lt;a name=&quot;安装cryogen&quot;&gt;&lt;/a&gt;安装cryogen&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;lein new cryogen my-blog
-cd my-blog
+&lt;h3&gt;&lt;a name=&quot;安装cryogen&quot;&gt;&lt;/a&gt;安装cryogen&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;lein new cryogen myblog
+cd myblog
 lein ring server
-&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a name=&quot;修改cryogen配置参数&quot;&gt;&lt;/a&gt;修改Cryogen配置参数&lt;/h3&gt;&lt;p&gt;编辑resources/templates/config.edn,修改配置参数blog-prefix为空。 修改后，需要运行lein ring server，这样才会重新产生resources/public目录下的文件&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;register&amp;#95;and&amp;#95;git&amp;#95;a&amp;#95;github&amp;#95;pages&amp;#95;account&amp;#95;robinchenyu.github.io&quot;&gt;&lt;/a&gt;register and git a github pages account robinchenyu.github.io&lt;/h3&gt;&lt;p&gt;参考: &lt;a href='https://pages.github.com/'&gt;pages.github.com&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;克隆robinchenyu.github.io项目到本地&quot;&gt;&lt;/a&gt;克隆robinchenyu.github.io项目到本地&lt;/h3&gt;&lt;p&gt;克隆项目到本地后，拷贝templates/public下的所有文件到项目中，然后测试 &lt;a href='https://robinchenyu.github.io'&gt;robinchenyu.github.io&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;域名绑定&quot;&gt;&lt;/a&gt;域名绑定&lt;/h3&gt;&lt;ol&gt;&lt;li&gt;在github.com博客项目中根目录下新加CNAME文件，文件内容为新域名   如: blogcn.cn&lt;/li&gt;&lt;li&gt;在购买的域名中设置DNS服务器   f1g1ns1.dnspod.net   f1g1ns2.dnspod.net &lt;/li&gt;&lt;li&gt;在DNSPod中添加github pages的域名&lt;ul&gt;&lt;li&gt;先添加一个CNAME，主机记录写@，后面记录值写上你的username.github.io&lt;/li&gt;&lt;li&gt;再添加一个CNAME，主机记录写www，后面记录值也是username.github.io   把username替换为你的帐户名&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ol&gt;
+&lt;/code&gt;&lt;/pre&gt;创建一个脚本blog.cmd，并放入到PATH指向的目录下&lt;pre&gt;&lt;code class=&quot;cmd&quot;&gt;cd c:/msys64/home/chenyu/myblog
+lein ring server
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;a name=&quot;修改cryogen配置参数&quot;&gt;&lt;/a&gt;修改Cryogen配置参数&lt;/h3&gt;&lt;p&gt;编辑resources/templates/config.edn,修改配置参数blog-prefix为空。 修改后，需要运行lein ring server，这样才会重新产生resources/public目录下的文件&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;register&amp;#95;and&amp;#95;git&amp;#95;a&amp;#95;github&amp;#95;pages&amp;#95;account&amp;#95;robinchenyu.github.io&quot;&gt;&lt;/a&gt;register and git a github pages account robinchenyu.github.io&lt;/h3&gt;&lt;p&gt;参考: &lt;a href='https://pages.github.com/'&gt;pages.github.com&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;克隆robinchenyu.github.io项目到本地&quot;&gt;&lt;/a&gt;克隆robinchenyu.github.io项目到本地&lt;/h3&gt;&lt;p&gt;克隆项目到本地后，把templates/public下的所有文件放到项目中master分支；并把myblog目录下的工程文件全部放入到source分支&lt;h2&gt;&lt;/h2&gt;添加工程文件到source分支&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;cd &amp;#126;/myblog
+git init
+git add &amp;#42;
+git add .gitignore
+git commit -m &amp;quot;add source files&amp;quot;
+git branch source
+git checkout source
+git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git push source origin
+&lt;h2&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/h2&gt;添加html文件到master分支&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;cd &amp;#126;/myblog/resources/public
+git init
+git add &amp;#42;
+git commit -m &amp;quot;add html files&amp;quot;
+git remote add git@github.com:robinchenyu/robinchenyu.github.io
+git push master origin
+&lt;/code&gt;&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;然后测试 &lt;a href='https://robinchenyu.github.io'&gt;robinchenyu.github.io&lt;/a&gt;&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;域名绑定&quot;&gt;&lt;/a&gt;域名绑定&lt;/h3&gt;&lt;ol&gt;&lt;li&gt;在github.com博客项目中根目录下新加CNAME文件，文件内容为新域名   如: blogcn.cn&lt;/li&gt;&lt;li&gt;在购买的域名中设置DNS服务器   f1g1ns1.dnspod.net   f1g1ns2.dnspod.net &lt;/li&gt;&lt;li&gt;在DNSPod中添加github pages的域名&lt;ul&gt;&lt;li&gt;先添加一个CNAME，主机记录写@，后面记录值写上你的username.github.io&lt;/li&gt;&lt;li&gt;再添加一个CNAME，主机记录写www，后面记录值也是username.github.io   把username替换为你的帐户名&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ol&gt;
 </description>
 <enclosure>
 
