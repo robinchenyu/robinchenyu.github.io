@@ -16,6 +16,7 @@
   <link rel="stylesheet" media="screen" href="/media/css/font.css" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" href="/media/css/main.css" type="text/css">
   <link rel="stylesheet" href="/media/css/kdComment.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
   <script type="text/javascript"
           src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
@@ -53,9 +54,9 @@
 <div class="post">
 <h1 class="title">Clojure Cookbook:多重方法</h1>
 
-<div id="outline-container-orge3865ae" class="outline-2">
-<h2 id="orge3865ae">在clojure语言中的多重方法定义, 先看一个最简单的实现方式:</h2>
-<div class="outline-text-2" id="text-orge3865ae">
+<div id="outline-container-org95a81a1" class="outline-2">
+<h2 id="org95a81a1">在clojure语言中的多重方法定义, 先看一个最简单的实现方式:</h2>
+<div class="outline-text-2" id="text-org95a81a1">
 <div class="org-src-container">
 <pre class="src src-clojure">(defn area
   "计算多边形面积"
@@ -75,7 +76,7 @@
 
 <p>
 用上面的方法可以实现函数调用分发，但是area定义有些繁琐，利用lisp语言的灵活性，可以用宏把area函数精简。Clojure语言有已经实现好的defmulti和defmethod宏。
-其中defmulti在定义中的最后一个参数`:type`是作为函数传入的，也可以定义为<a href="#org7460ffe">a</a>
+其中defmulti在定义中的最后一个参数`:type`是作为函数传入的，也可以定义为<a href="#org899ff6b">a</a>
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure">(defmulti area
@@ -103,7 +104,7 @@
 </div>
 
 <p>
-a. <a id="org7460ffe"></a> 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
+a. <a id="org899ff6b"></a> 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure">(defmulti area (fn [shape] (:type shape)))
@@ -126,6 +127,9 @@ a. <a id="org7460ffe"></a> 在使用defmulti定义时使用的:type参数其实�
     <span title="author" class="post-info"></span>
   </div>
   <script src="/media/js/jquery-2.1.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="/media/js/main.js"></script>
   <section>
     <h1>Comments</h1>
     <div id="comment-wrap">
