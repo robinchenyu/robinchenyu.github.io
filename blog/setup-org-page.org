@@ -5,7 +5,7 @@
 #+URI:         /blog/%y/%m/%d/setup-org-page
 #+KEYWORDS:    emacs, org-page, github
 #+TAGS:        emacs, org-page, github
-#+LANGUAGE:    en
+#+LANGUAGE:    zh
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Setup org-page and publish to github page
 
