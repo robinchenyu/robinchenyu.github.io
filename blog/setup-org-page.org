@@ -55,3 +55,6 @@ then install *org-plus-contrib*. Could be install by elpa package.
    2. Publish to directory? (original repo if not) (y or n) n
    3. Auto-commit to repo? (y or n) y
    4. Auto-push to repo? (y or n) y
+
+参考:
+1. http://emacs-china.github.io/blog/2015/04/15/org-page%20%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8

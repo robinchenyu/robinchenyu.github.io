@@ -32,9 +32,9 @@
 <div class="post">
 <h1>setup org-page</h1>
 
-<div id="outline-container-org5ee4ec1" class="outline-2">
-<h2 id="org5ee4ec1">Install Org-Page</h2>
-<div class="outline-text-2" id="text-org5ee4ec1">
+<div id="outline-container-org0a0ec97" class="outline-2">
+<h2 id="org0a0ec97">Install Org-Page</h2>
+<div class="outline-text-2" id="text-org0a0ec97">
 <p>
    First need to delete org package, or it would conflict with new versions,
 then install <b>org-plus-contrib</b>. Could be install by elpa package.
@@ -42,9 +42,9 @@ then install <b>org-plus-contrib</b>. Could be install by elpa package.
 </div>
 </div>
 
-<div id="outline-container-org12f9900" class="outline-2">
-<h2 id="org12f9900">Setup init.el file</h2>
-<div class="outline-text-2" id="text-org12f9900">
+<div id="outline-container-org8a6fc75" class="outline-2">
+<h2 id="org8a6fc75">Setup init.el file</h2>
+<div class="outline-text-2" id="text-org8a6fc75">
 <div class="org-src-container">
 <pre class="src src-elisp">(require 'org-page)
 (setq op/repository-directory "~/pp")
@@ -58,9 +58,9 @@ then install <b>org-plus-contrib</b>. Could be install by elpa package.
 </div>
 </div>
 
-<div id="outline-container-org9d46d3e" class="outline-2">
-<h2 id="org9d46d3e">Create a new repository by op/new-repository</h2>
-<div class="outline-text-2" id="text-org9d46d3e">
+<div id="outline-container-orgd7b4f79" class="outline-2">
+<h2 id="orgd7b4f79">Create a new repository by op/new-repository</h2>
+<div class="outline-text-2" id="text-orgd7b4f79">
 <p>
 Create a new reporsitory, then add github page rep to it.
 </p>
@@ -81,18 +81,18 @@ git branch --set-upstream-to=origin/master master
 </div>
 </div>
 
-<div id="outline-container-org11fd55c" class="outline-2">
-<h2 id="org11fd55c">Write a new post with op/new-post</h2>
-<div class="outline-text-2" id="text-org11fd55c">
+<div id="outline-container-orgc885522" class="outline-2">
+<h2 id="orgc885522">Write a new post with op/new-post</h2>
+<div class="outline-text-2" id="text-orgc885522">
 <pre class="example">
 M-x op/new-post RET
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org4de552c" class="outline-2">
-<h2 id="org4de552c">Publish the post with op/do-publication</h2>
-<div class="outline-text-2" id="text-org4de552c">
+<div id="outline-container-org127f632" class="outline-2">
+<h2 id="org127f632">Publish the post with op/do-publication</h2>
+<div class="outline-text-2" id="text-org127f632">
 <pre class="example">
 M-x op/do-publication
 </pre>
@@ -105,6 +105,13 @@ some questions need to answer.
 <li>Publish to directory? (original repo if not) (y or n) n</li>
 <li>Auto-commit to repo? (y or n) y</li>
 <li>Auto-push to repo? (y or n) y</li>
+</ol>
+
+<p>
+参考:
+</p>
+<ol class="org-ol">
+<li><a href="http://emacs-china.github.io/blog/2015/04/15/org-page%20%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8">http://emacs-china.github.io/blog/2015/04/15/org-page 的配置与使用</a></li>
 </ol>
 </div>
 </div>
