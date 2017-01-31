@@ -5,7 +5,7 @@
 #+URI:         /blog/%y/%m/%d/setup-org-page
 #+KEYWORDS:    emacs, org-page, github
 #+TAGS:        emacs, org-page, github
-#+LANGUAGE:    zh
+#+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Setup org-page and publish to github page
 
@@ -55,13 +55,33 @@ then install *org-plus-contrib*. Could be install by elpa package.
    2. Publish to directory? (original repo if not) (y or n) n
    3. Auto-commit to repo? (y or n) y
    4. Auto-push to repo? (y or n) y
-** �޸�RSS pubDate��������
-   ��鵽��=op/update-rss=���������²��ַ��ش���
+** 修复RSS pubDate乱码问题
+   检查到是=op/update-rss=函数中如下部分返回代码
    #+BEGIN_SRC elisp
    (format-time-string "%a, %d %b %Y %T %Z")
    #+END_SRC
 
-   #+RESULTS:
-   : Tue, 31 Jan 2017 21:14:31  � �  ��
-
-   ��`%Z`�滻Ϊ`%z`�޸�����
+   把`%Z`替换为`%z`修复问题
+** 修改theme
+   修改为emacs_love后，发现没有代码高亮了，需要做如下修改。
+   1. 先拷贝出org-page中自带的themes
+      拷贝出来在做修改，这样在包升级后，不会被覆盖修改。
+      #+BEGIN_SRC bash
+      cp ~/.emacs.d/elpa/org-page-20161121.2129/themes ~/.emacs.d/themes
+      #+END_SRC
+   2. 修改themes路径
+      #+BEGIN_SRC elisp
+(setq op/theme 'emacs_love)
+(setq op/theme-root-directory "c:/msys64/home/chenyu/.emacs.d/themes/")
+      #+END_SRC
+   3. 修改模板，添加代码高亮支持
+      在.emacs.d/themes/emacs_love/templates/header.mustache添加下面的第二行:
+      #+BEGIN_SRC html
+  <link rel="stylesheet" href="/media/css/kdComment.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+      #+END_SRC
+      在.emacs.d/themes/emacs_love/templates/footer.mustache添加下面的第二行:
+      #+BEGIN_SRC html
+  <script src="/media/js/jquery-2.1.3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      #+END_SRC
