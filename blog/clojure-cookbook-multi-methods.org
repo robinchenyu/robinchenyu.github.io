@@ -27,6 +27,7 @@
    #+END_SRC
 
    用上面的方法可以实现函数调用分发，但是area定义有些繁琐，利用lisp语言的灵活性，可以用宏把area函数精简。Clojure语言有已经实现好的defmulti和defmethod宏。
+   其中defmulti在定义中的最后一个参数`:type`是作为函数传入的，也可以定义为[[a]]
    #+BEGIN_SRC clojure
 (defmulti area
   "计算多边形面积"
@@ -51,7 +52,7 @@
 ; => 3.141592653589793
    #+END_SRC
 
-* a 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
+<<a>> 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
   #+BEGIN_SRC clojure
   (defmulti area (fn [shape] (:type shape)))
   #+END_SRC
