@@ -55,3 +55,13 @@ then install *org-plus-contrib*. Could be install by elpa package.
    2. Publish to directory? (original repo if not) (y or n) n
    3. Auto-commit to repo? (y or n) y
    4. Auto-push to repo? (y or n) y
+** ĞŞ¸´RSS pubDateÂÒÂëÎÊÌâ
+   ¼ì²éµ½ÊÇ=op/update-rss=º¯ÊıÖĞÈçÏÂ²¿·Ö·µ»Ø´úÂë
+   #+BEGIN_SRC elisp
+   (format-time-string "%a, %d %b %Y %T %Z")
+   #+END_SRC
+
+   #+RESULTS:
+   : Tue, 31 Jan 2017 21:14:31  ¶ ê  ¼ä
+
+   °Ñ`%Z`Ìæ»»Îª`%z`ĞŞ¸´ÎÊÌâ
