@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>amule installation - The Blog</title>
+  <title>Emacs Setup Tips - The Blog</title>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="author" content="" />
-  <meta name="description" content="install amule and config" />
-  <meta name="keywords" content="amule, linux, download" />
+  <meta name="description" content="Emacs常用配置" />
+  <meta name="keywords" content="emacs, setup" />
   <style>
    #ds-thread #ds-reset .ds-comment-body p {color: #ffffff;}
    #disqus_thread a {color: #00ffff;}
@@ -52,27 +52,36 @@
 
 <div>
 <div class="post">
-<h1 class="title">amule installation</h1>
+<h1 class="title">Emacs Setup Tips</h1>
 
-<div id="outline-container-org4c2dac5" class="outline-2">
-<h2 id="org4c2dac5">amule install in opensuse</h2>
-<div class="outline-text-2" id="text-org4c2dac5">
-<ul class="org-ul">
-<li>Goto <a href="http://packman.links2linux.org/package/aMule/628648">Amule Download</a></li>
-<li>Install dependency
-amule is depends on libcryptopp.
-`zypper in libcryptopp-5_6_2-0`</li>
-</ul>
+<div id="outline-container-org08690c5" class="outline-2">
+<h2 id="org08690c5">emacs中配置Encoding</h2>
+<div class="outline-text-2" id="text-org08690c5">
+<p>
+操作系统环境配置如下:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">export LC_ALL='zh_CN.UTF-8'
+export LANG='zh_CN.UTF-8'
+</pre>
 </div>
+
+<p>
+emacs中配置如下, 其中`(setq system-time-locale "C")`是为了避免org中日期显示有乱码,
+配置为"C"后，日志星期显示为英文。
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(when (or window-system (sanityinc/locale-is-utf8-p))
+(set-language-environment 'utf-8)
+(setq locale-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-selection-coding-system (if (eq system-type 'windows-nt) 'utf-16-le 'utf-8))
+(prefer-coding-system 'utf-8)
+(setq system-time-locale "C")
+(message "set locale to utf-8"))
+</pre>
 </div>
-<div id="outline-container-org9b456e1" class="outline-2">
-<h2 id="org9b456e1">Configuration for a single user</h2>
-<div class="outline-text-2" id="text-org9b456e1">
-<ul class="org-ul">
-<li>Insert about:config in the address bar</li>
-<li>Right click on the list, select New, then Boolean; insert network.protocol-handler.external.ed2k as Preference Name and true as Value</li>
-<li>Now another right click, select New and String; insert network.protocol-handler.app.ed2k as Preference Name and /path/to/ed2k (path to where the file is installed on your system) as Value.</li>
-</ul>
 </div>
 </div>
 
@@ -80,9 +89,9 @@ amule is depends on libcryptopp.
 </div>
 <div>
   <div class="post-meta">
-    <span title="post date" class="post-info">2017-01-31</span>
-    <span title="last modification date" class="post-info">2017-01-31</span>
-    <span title="tags" class="post-info"><a href="/tags/amule/">amule</a>, <a href="/tags/linux/">linux</a>, <a href="/tags/download/">download</a></span>
+    <span title="post date" class="post-info">2017-02-01</span>
+    <span title="last modification date" class="post-info">2017-02-01</span>
+    <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/setup/">setup</a></span>
     <span title="author" class="post-info"></span>
   </div>
   <script src="/media/js/jquery-2.1.3.min.js"></script>
