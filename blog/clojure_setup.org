@@ -24,7 +24,7 @@
        :repl-options {:port 30000}
      #+END_SRC
 
-  2. 解决方法2,在~/.lein/profiles.clj下添加，此方法验证未生效
+  2. 解决方法2,在~/.lein/profiles.clj下添加
      #+BEGIN_SRC clojure
           {:user  {;Location of local repository
            :local-repo "d:\\home\\clojure\\.m2"
@@ -32,14 +32,41 @@
            ;(that can't be downloaded from public repo's)
            :repositories  {"local" {:url "file://d:\\home\\clojure\\.m2"
                                     :releases {:checksum :ignore}}}
-           :repl-options {:port 30000}
            {:plugins [[lein-pprint "1.1.1"]]
-                   :dependencies [[slamhound "1.3.1"]]}}}
+            :dependencies [[slamhound "1.3.1"]]}
+            :repl-options {:port 30000}}}
      #+END_SRC
 
 ** emacs中设置nrepl默认端口
-   #+BEGIN_SRC 
-   M-x customize-variable --> nrepl-port --> "30000"
+   添加配置, 同时需要修改`cider.el`中=cider-select-endpoint=函数
+   #+BEGIN_SRC elisp
+   (setq cider-known-endpoints '(("X240" "localhost" "30000")))
+
+   ;; 
+   (defun cider-select-endpoint ()
+  "Interactively select the host and port to connect to."
+  (dolist (endpoint cider-known-endpoints)
+    (unless (stringp (or (nth 2 endpoint)
+                         (nth 1 endpoint)))
+      (user-error "The port for %s in `cider-known-endpoints' should be a string"
+                  (nth 0 endpoint))))
+  (let* ((ssh-hosts (cider--ssh-hosts))
+         (hosts (seq-uniq (append (when cider-host-history
+                                    ;; history elements are strings of the form "host:port"
+                                    (list (split-string (car cider-host-history) ":")))
+                                  (list (list (cider-current-host)))
+                                  cider-known-endpoints
+                                  ssh-hosts
+                                  (when (file-remote-p default-directory)
+                                    ;; add localhost even in remote buffers
+                                    '(("localhost"))))))
+         (sel-host (cider--completing-read-host hosts))
+         (host (car sel-host))
+         (port (or (cadr sel-host)
+                   (cider--completing-read-port host (cider--infer-ports host ssh-hosts)))))
++    (if (stringp port)
++        (setq port (string-to-int port)))
+    (list host port)))
    #+END_SRC
 
 * clojure中的基本元素
