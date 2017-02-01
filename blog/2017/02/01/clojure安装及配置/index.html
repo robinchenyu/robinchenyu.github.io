@@ -54,12 +54,12 @@
 <div class="post">
 <h1 class="title">Clojure安装及配置</h1>
 
-<div id="outline-container-org2229500" class="outline-2">
-<h2 id="org2229500">clojure配置repl端口和repo路径</h2>
-<div class="outline-text-2" id="text-org2229500">
-</div><div id="outline-container-org865fe89" class="outline-3">
-<h3 id="org865fe89">修改repo默认路径</h3>
-<div class="outline-text-3" id="text-org865fe89">
+<div id="outline-container-org14c4c89" class="outline-2">
+<h2 id="org14c4c89">clojure配置repl端口和repo路径</h2>
+<div class="outline-text-2" id="text-org14c4c89">
+</div><div id="outline-container-org2da5f64" class="outline-3">
+<h3 id="org2da5f64">修改repo默认路径</h3>
+<div class="outline-text-3" id="text-org2da5f64">
 <p>
 在windows下lein的默认三方包存放路径在%USERPROFIL%/.m2下,windows下的此路径一般是C:/Document and Settings/user,但是lein和emacs在处理路径中的空格时常常出错
 </p>
@@ -97,14 +97,14 @@
 </div>
 </div>
 
-<div id="outline-container-org7426cc2" class="outline-3">
-<h3 id="org7426cc2">emacs中设置nrepl默认端口</h3>
-<div class="outline-text-3" id="text-org7426cc2">
+<div id="outline-container-orgb3df031" class="outline-3">
+<h3 id="orgb3df031">emacs中设置nrepl默认端口</h3>
+<div class="outline-text-3" id="text-orgb3df031">
 <p>
 添加配置, 同时需要修改`cider.el`中=cider-select-endpoint=函数
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp">   (setq cider-known-endpoints '(("X240" "localhost" "30000")))
+<pre class="src src-diff">   (setq cider-known-endpoints '(("X240" "localhost" "30000")))
 
    ;; 
    (defun cider-select-endpoint ()
@@ -132,306 +132,6 @@
 +        (setq port (string-to-int port)))
     (list host port)))
 </pre>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org6ab8de9" class="outline-2">
-<h2 id="org6ab8de9">clojure中的基本元素</h2>
-<div class="outline-text-2" id="text-org6ab8de9">
-<ol class="org-ol">
-<li>Forms
-<ul class="org-ul">
-<li><p>
-Boolean
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">true, false
-</pre>
-</div></li>
-<li><p>
-Character
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">\a
-</pre>
-</div></li>
-<li><p>
-Keyword
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">:tag, :doc
-</pre>
-</div></li>
-<li><p>
-List
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(1 2 3), (println "hello")
-</pre>
-</div></li>
-<li><p>
-Map
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">{:name "Bill", :age 42}
-</pre>
-</div></li>
-<li><p>
-Nil
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">nil
-</pre>
-</div></li>
-<li><p>
-Number
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">1, 4, 2
-</pre>
-</div></li>
-<li><p>
-Set
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">#{:snap :crackle :pop}
-</pre>
-</div></li>
-<li><p>
-String
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">"hello"
-</pre>
-</div></li>
-<li><p>
-Symbol
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">user/foo, java.lang.String
-</pre>
-</div></li>
-<li><p>
-Vector
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">[1 2 3]
-</pre>
-</div></li>
-</ul></li>
-
-<li>Reader Macros</li>
-<li>Functions
-<ul class="org-ul">
-<li><p>
-reduce
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">#(reduce conj () %)
-</pre>
-</div></li>
-<li><p>
-clojure.string/join
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(clojure.string/join '(1 2 3))
-;; =&gt; "123"
-(clojure.string/join "," '(1 2 3))
-;; =&gt; "1,2,3"
-</pre>
-</div></li>
-<li><p>
-clojure.string/split
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(doc clojure.string/split)
--------------------------
-clojure.string/split
-([s re] [s re limit])
-  Splits string on a regular expression.  Optional argument limit is
-  the maximum number of splits. Not lazy. Returns vector of the splits.
-nil
-</pre>
-</div></li>
-<li>take</li>
-<li><p>
-iterate
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(take 10 (iterate #(+ 1 %) 1))
- =&gt; (1 2 3 4 5 6 7 8 9 10)
-</pre>
-</div></li>
-<li><p>
-fn
-fn定义函数时，也可以添加函数名
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(fn fla [x]
-  (if (coll? x)
-    (when (seq x) (concat (fla (first x)) (fla (rest x))))
-    [x])
-  )
-</pre>
-</div></li>
-<li><p>
-concat
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(concat [1] [2]) =&gt; '(1 2)
-</pre>
-</div></li>
-<li><p>
-mapcat
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(mapcat #(if (sequential? %) % [%]) '(1 2 3 [4] [5 [6]]))
-</pre>
-</div></li>
-<li>tree-seq</li>
-<li>complement</li>
-<li>sequential?</li>
-<li>seq?</li>
-<li>interleave</li>
-</ul></li>
-<li>Bindingsand Namespace</li>
-<li>Flow Control
-<ul class="org-ul">
-<li><p>
-cond
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(defn nth1 [col index]
-  (cond (= index 0) (first col)
-        (&lt; index 0) 0
-        (= (count col) 0) 0
-        :else (recur (next col) (- index 1))))
-</pre>
-</div></li>
-</ul></li>
-<li>Metadata</li>
-</ol>
-</div>
-
-<div id="outline-container-org70f01ae" class="outline-3">
-<h3 id="org70f01ae">clojure关键字</h3>
-<div class="outline-text-3" id="text-org70f01ae">
-<ol class="org-ol">
-<li>print相关函数
-print 打印函数
-println 同print,结尾打印\r
-printf  使用fmt, 如: (printf "Hello %s %f" "world" 0.3)
-format  组装字符串
-str     组装字符串
-println-str 组装字符串，并打印</li>
-
-<li><p>
-def定义值或名称
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(def v 100)
-(def v2 (int 10)) ; 指定v2的数据类型
-(def v3 (fn [n] (* n n))) ; v3为函数
-</pre>
-</div></li>
-
-<li><p>
-let
-定义局部临时变量
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(let [x 10]
-     (print x))
-</pre>
-</div>
-<p>
-定义多个变量 (def好像不能定义多个)
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(let [[x y] [3 4]] (println (* x y))) ; 12
-(let [x 3 y 4] (println (* x y)))
-(let [[x y] [3 4 5]] [x y]) ; [3 4] 多余的5被忽略
-(let [[_ _ z] [3 4 5]] z) ; 5
-(let [[a b &amp; c] [1 2 3 4 5]] [a b c]) ; [1 2 (3 4 5)]
-</pre>
-</div>
-<p>
-多个变量之间可以依赖（后面的依赖前面的），这点*非常*非常*有用：
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(let [x 10 y (* x x) z (* 2 y)] (println z)) ; 200
-;; let的执行体内可以调用多个函数：
-(let [x 10] (println x) (println (* x x)))
-</pre>
-</div></li>
-
-<li><p>
-binding
-binding的作用域是thread-local的,即使绑定变量在内层函数，也可以生效，let不行。
-binding的变量，需要添加^:dynamic。
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(def ^:dynamic v1 10)
-(def ^:dynamic v2 20)
-(declare ^:dynamic v3)
-(binding [v1 1 v2 2 v3 3] (+ v1 v2 v3)) ; 6
-(+ v1 v2) ; 30
-(defn f [] (+ v1 v2))
-(binding [v1 1 v2 2] (f)) ; 3
-(f) ; 30
-</pre>
-</div>
-
-<p>
-binding内部还可以使用set!来设置变量：
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(def ^:dynamic v 10)
-(declare ^:dynamic x)
-(binding [x 20] (inc x)) ; 1 x必须先用def或者declare定义
-</pre>
-</div>
-
-<p>
-使用declare定义变量但不绑定初始值：
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(declare ^:dynamic v1)
-(defn f [] (println v1))
-(let [v1 10] (f)) ; 报错
-(binding [v1 100] (f)) ; 100
-</pre>
-</div></li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org6df06de" class="outline-3">
-<h3 id="org6df06de">语法基础</h3>
-<div class="outline-text-3" id="text-org6df06de">
-</div><div id="outline-container-org2d3992a" class="outline-4">
-<h4 id="org2d3992a">引入包</h4>
-<div class="outline-text-4" id="text-org2d3992a">
-<div class="org-src-container">
-<pre class="src src-clojure">(require 'clojure.contrib.str-utils)
-</pre>
-</div>
-<p>
-上面这句告诉编译器到 $CLASSPATH/clojure/contrib/str-utils.clj查找文件
-</p>
-
-<p>
-require + refer == use,如下:
-</p>
-<div class="org-src-container">
-<pre class="src src-clojure">(require 'example.introduction)
-(refer 'example.introduction)
-
-(use :reload-all 'example.introduction)
-</pre>
-</div>
 </div>
 </div>
 </div>
