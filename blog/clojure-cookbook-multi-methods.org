@@ -52,9 +52,9 @@
 ; => 3.141592653589793
    #+END_SRC
 
-a. <<a>> 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
+_a_. <<a>> 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
   #+BEGIN_SRC clojure
   (defmulti area (fn [shape] (:type shape)))
   #+END_SRC
   同时，由于通过函数分发，增加了灵活性，defmulti是可以支持多参数分发
-  [clojuredocs文档](https://clojuredocs.org/clojure.core/defmulti)
+  [[https://clojuredocs.org/clojure.core/defmulti][clojuredocs文档]]
