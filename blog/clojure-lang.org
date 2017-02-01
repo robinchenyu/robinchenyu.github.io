@@ -1,0 +1,202 @@
+#+TITLE:       Clojure基本语法相关
+#+AUTHOR:
+#+EMAIL:       robin.chenyu@gmail.com
+#+DATE:        2017-02-01 周三
+#+URI:         /blog/%y/%m/%d/clojure基本语法相关
+#+KEYWORDS:    clojure, base, tips
+#+TAGS:        clojure, base, tips
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Clojure相关的基本语法
+
+* clojure中的基本元素
+ 1. Forms
+    - Boolean
+      #+BEGIN_SRC clojure
+        true, false
+      #+END_SRC
+    - Character
+      #+BEGIN_SRC clojure
+        \a
+      #+END_SRC
+    - Keyword
+      #+BEGIN_SRC clojure
+        :tag, :doc
+      #+END_SRC
+    - List
+      #+BEGIN_SRC clojure
+        (1 2 3), (println "hello")
+      #+END_SRC
+    - Map
+      #+BEGIN_SRC clojure
+        {:name "Bill", :age 42}
+      #+END_SRC
+    - Nil
+      #+BEGIN_SRC clojure
+        nil
+      #+END_SRC
+    - Number
+      #+BEGIN_SRC clojure
+        1, 4, 2
+      #+END_SRC
+    - Set
+      #+BEGIN_SRC clojure
+        #{:snap :crackle :pop}
+      #+END_SRC
+    - String
+      #+BEGIN_SRC clojure
+        "hello"
+      #+END_SRC
+    - Symbol
+      #+BEGIN_SRC clojure
+        user/foo, java.lang.String
+      #+END_SRC
+    - Vector
+      #+BEGIN_SRC clojure
+        [1 2 3]
+      #+END_SRC
+
+ 2. Reader Macros
+ 3. Functions
+    - reduce
+      #+BEGIN_SRC clojure
+        #(reduce conj () %)
+      #+END_SRC
+    - clojure.string/join
+      #+BEGIN_SRC clojure
+      (clojure.string/join '(1 2 3))
+      ;; => "123"
+      (clojure.string/join "," '(1 2 3))
+      ;; => "1,2,3"
+      #+END_SRC
+    - clojure.string/split
+      #+BEGIN_SRC clojure
+     (doc clojure.string/split)
+     -------------------------
+     clojure.string/split
+     ([s re] [s re limit])
+       Splits string on a regular expression.  Optional argument limit is
+       the maximum number of splits. Not lazy. Returns vector of the splits.
+     nil
+      #+END_SRC
+    - take
+    - iterate
+      #+BEGIN_SRC clojure
+      (take 10 (iterate #(+ 1 %) 1))
+       => (1 2 3 4 5 6 7 8 9 10)
+      #+END_SRC
+    - fn
+      fn定义函数时，也可以添加函数名
+      #+BEGIN_SRC clojure
+      (fn fla [x]
+        (if (coll? x)
+          (when (seq x) (concat (fla (first x)) (fla (rest x))))
+          [x])
+        )
+      #+END_SRC
+    - concat
+      #+BEGIN_SRC clojure
+      (concat [1] [2]) => '(1 2)
+      #+END_SRC
+    - mapcat
+      #+BEGIN_SRC clojure
+      (mapcat #(if (sequential? %) % [%]) '(1 2 3 [4] [5 [6]]))
+      #+END_SRC
+    - tree-seq
+    - complement
+    - sequential?
+    - seq?
+    - interleave
+ 4. Bindingsand Namespace
+ 5. Flow Control
+    - cond
+      #+BEGIN_SRC clojure
+      (defn nth1 [col index]
+        (cond (= index 0) (first col)
+              (< index 0) 0
+              (= (count col) 0) 0
+              :else (recur (next col) (- index 1))))
+      #+END_SRC
+ 6. Metadata
+
+ ** clojure关键字
+    1. print相关函数
+       print 打印函数
+       println 同print,结尾打印\r
+       printf  使用fmt, 如: (printf "Hello %s %f" "world" 0.3)
+       format  组装字符串
+       str     组装字符串
+       println-str 组装字符串，并打印
+
+    2. def定义值或名称
+       #+BEGIN_SRC clojure
+         (def v 100)
+         (def v2 (int 10)) ; 指定v2的数据类型
+         (def v3 (fn [n] (* n n))) ; v3为函数
+
+       #+END_SRC
+
+    4. let
+       定义局部临时变量
+       #+BEGIN_SRC clojure
+         (let [x 10]
+              (print x))
+       #+END_SRC
+       定义多个变量 (def好像不能定义多个)
+       #+BEGIN_SRC clojure
+         (let [[x y] [3 4]] (println (* x y))) ; 12
+         (let [x 3 y 4] (println (* x y)))
+         (let [[x y] [3 4 5]] [x y]) ; [3 4] 多余的5被忽略
+         (let [[_ _ z] [3 4 5]] z) ; 5
+         (let [[a b & c] [1 2 3 4 5]] [a b c]) ; [1 2 (3 4 5)]
+       #+END_SRC
+       多个变量之间可以依赖（后面的依赖前面的），这点*非常*非常*有用：
+       #+BEGIN_SRC clojure
+         (let [x 10 y (* x x) z (* 2 y)] (println z)) ; 200
+         ;; let的执行体内可以调用多个函数：
+         (let [x 10] (println x) (println (* x x)))
+       #+END_SRC
+
+    5. binding
+       binding的作用域是thread-local的,即使绑定变量在内层函数，也可以生效，let不行。
+       binding的变量，需要添加^:dynamic。
+       #+BEGIN_SRC clojure
+         (def ^:dynamic v1 10)
+         (def ^:dynamic v2 20)
+         (declare ^:dynamic v3)
+         (binding [v1 1 v2 2 v3 3] (+ v1 v2 v3)) ; 6
+         (+ v1 v2) ; 30
+         (defn f [] (+ v1 v2))
+         (binding [v1 1 v2 2] (f)) ; 3
+         (f) ; 30
+       #+END_SRC
+
+      binding内部还可以使用set!来设置变量：
+      #+BEGIN_SRC clojure
+      (def ^:dynamic v 10)
+      (declare ^:dynamic x)
+      (binding [x 20] (inc x)) ; 1 x必须先用def或者declare定义
+      #+END_SRC
+
+      使用declare定义变量但不绑定初始值：
+      #+BEGIN_SRC clojure
+      (declare ^:dynamic v1)
+      (defn f [] (println v1))
+      (let [v1 10] (f)) ; 报错
+      (binding [v1 100] (f)) ; 100
+      #+END_SRC
+
+** 语法基础
+*** 引入包
+    #+BEGIN_SRC clojure
+      (require 'clojure.contrib.str-utils)
+    #+END_SRC
+    上面这句告诉编译器到 $CLASSPATH/clojure/contrib/str-utils.clj查找文件
+
+    require + refer == use,如下:
+    #+BEGIN_SRC clojure
+      (require 'example.introduction)
+      (refer 'example.introduction)
+
+      (use :reload-all 'example.introduction)
+    #+END_SRC
