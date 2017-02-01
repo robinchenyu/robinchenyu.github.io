@@ -54,9 +54,9 @@
 <div class="post">
 <h1 class="title">Clojure Cookbook:多重方法</h1>
 
-<div id="outline-container-orga5f8d0c" class="outline-2">
-<h2 id="orga5f8d0c">在clojure语言中的多重方法定义, 先看一个最简单的实现方式:</h2>
-<div class="outline-text-2" id="text-orga5f8d0c">
+<div id="outline-container-org6c1696d" class="outline-2">
+<h2 id="org6c1696d">在clojure语言中的多重方法定义, 先看一个最简单的实现方式:</h2>
+<div class="outline-text-2" id="text-org6c1696d">
 <div class="org-src-container">
 <pre class="src src-clojure">(defn area
   "计算多边形面积"
@@ -76,7 +76,7 @@
 
 <p>
 用上面的方法可以实现函数调用分发，但是area定义有些繁琐，利用lisp语言的灵活性，可以用宏把area函数精简。Clojure语言有已经实现好的defmulti和defmethod宏。
-其中defmulti在定义中的最后一个参数`:type`是作为函数传入的，也可以定义为<a href="#orga1f8579">a</a>
+其中defmulti在定义中的最后一个参数`:type`是作为函数传入的，也可以定义为<a href="#org8361954">a</a>
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure">(defmulti area
@@ -104,7 +104,7 @@
 </div>
 
 <p>
-a. <a id="orga1f8579"></a> 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
+<span class="underline">a</span>. <a id="org8361954"></a> 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure">(defmulti area (fn [shape] (:type shape)))
@@ -112,7 +112,7 @@ a. <a id="orga1f8579"></a> 在使用defmulti定义时使用的:type参数其实�
 </div>
 <p>
 同时，由于通过函数分发，增加了灵活性，defmulti是可以支持多参数分发
-[clojuredocs文档](<a href="https://clojuredocs.org/clojure.core/defmulti">https://clojuredocs.org/clojure.core/defmulti</a>)
+<a href="https://clojuredocs.org/clojure.core/defmulti">clojuredocs文档</a>
 </p>
 </div>
 </div>
@@ -122,7 +122,7 @@ a. <a id="orga1f8579"></a> 在使用defmulti定义时使用的:type参数其实�
 <div>
   <div class="post-meta">
     <span title="post date" class="post-info">2017-01-31</span>
-    <span title="last modification date" class="post-info">2017-01-31</span>
+    <span title="last modification date" class="post-info">2017-02-01</span>
     <span title="tags" class="post-info"><a href="/tags/clojure/">clojure</a>, <a href="/tags/cookbook/">cookbook</a>, <a href="/tags/multimethods/">multimethods</a></span>
     <span title="author" class="post-info"></span>
   </div>
