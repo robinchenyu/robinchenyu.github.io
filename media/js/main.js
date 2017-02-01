@@ -9,21 +9,21 @@ $(document).ready(function() {
     $blocks.each(function(index) {
         var self = $(this);
         var classes = self.removeClass('src').attr('class').split(/\s+/);
+        self.addClass('hljs');
         $.each(classes, function(idx, cls) {
             if (cls.substring(0, 4) === 'src-') {
                 var lang = cls.substring(4);
-                self.removeClass(cls).addClass('lang-' + lang);
+                self.removeClass(cls).addClass(lang);
             }
         });
-        self.addClass('prettyprint');
     });
     $('pre.example').removeClass('example').addClass('prettyprint');
 
-    /*******************************************************************
-     * 1. remove all org exported line number spans
-     * 2. add css class "linenums" to code block per the description of
-     *    prettify.js
-     ******************************************************************/
+  //   /*******************************************************************
+  //    * 1. remove all org exported line number spans
+  //    * 2. add css class "linenums" to code block per the description of
+  //    *    prettify.js
+  //    ******************************************************************/
     var $lines = $('span.linenr');
     var $linedBlocks = $lines.parent();
     $lines.remove();
@@ -31,8 +31,18 @@ $(document).ready(function() {
         $(this).addClass('linenums');
     });
 
-    /*******************************************************************
-     * pretty print all code blocks
-     ******************************************************************/
-    prettyPrint();
+  //   /*******************************************************************
+  //    * pretty print all code blocks
+  //    ******************************************************************/
+  // prettyPrint();
+
+  // hljs.configure({useBR: true});
+
+  $('pre.hljs').each(function(i, block) {
+    hljs.highlightBlock(block);
+    // var classval = $(this).attr('class').replace("src-", "");
+    // var htmlval = $(this).html();
+    // $(this).text("<code class='" + $classval + "'>" + $htmlval + "</code>");
+
+  });
 });
