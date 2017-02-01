@@ -1,0 +1,32 @@
+#+TITLE:       Emacs Setup Tips
+#+AUTHOR:
+#+EMAIL:       robin.chenyu@gmail.com
+#+DATE:        2017-02-01 周三
+#+URI:         /blog/%y/%m/%d/emacs-setup-tips
+#+KEYWORDS:    emacs, setup
+#+TAGS:        emacs, setup
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Emacs常用配置
+
+** emacs中配置Encoding
+   操作系统环境配置如下:
+   #+BEGIN_SRC bash
+   export LC_ALL='zh_CN.UTF-8'
+   export LANG='zh_CN.UTF-8'
+   #+END_SRC
+
+   emacs中配置如下, 其中`(setq system-time-locale "C")`是为了避免org中日期显示有乱码,
+   配置为"C"后，日志星期显示为英文。
+   #+BEGIN_SRC emacs-lisp
+   (when (or window-system (sanityinc/locale-is-utf8-p))
+   (set-language-environment 'utf-8)
+   (setq locale-coding-system 'utf-8)
+   (set-default-coding-systems 'utf-8)
+   (set-terminal-coding-system 'utf-8)
+   (set-selection-coding-system (if (eq system-type 'windows-nt) 'utf-16-le 'utf-8))
+   (prefer-coding-system 'utf-8)
+   (setq system-time-locale "C")
+   (message "set locale to utf-8"))
+
+   #+END_SRC
