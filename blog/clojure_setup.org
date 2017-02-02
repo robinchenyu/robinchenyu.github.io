@@ -69,4 +69,12 @@
     (list host port)))
    #+END_SRC
 
+*** clojure常用库
+    ~lein-try~ 是一个非常有用的库。比如在了解 ~clj-time~ 中的新方法时，遇到困难，需要测试，使用 ~lein-try~ 不需要新建一个工程，
+    再在工程中添加 ~lein-try~, 直接在使用 ~lein try clj-time~ 就可以了。
+    安装方式, 在 _.lein/profiles.clj_ 中添加如下:
+    #+BEGIN_SRC clojure
+    {:user {:plugins [[lein-try "0.4.1"]]}}
+    #+END_SRC
+    
 
