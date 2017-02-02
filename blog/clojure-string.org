@@ -1,0 +1,27 @@
+#+TITLE:       Clojure 字符串相关库
+#+AUTHOR:
+#+EMAIL:       robin.chenyu@gmail.com
+#+DATE:        2017-02-02 周四
+#+URI:         /blog/%y/%m/%d/clojure-字符串相关库
+#+KEYWORDS:    clojure, string
+#+TAGS:        clojure, string
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Clojure 字符串操作相关
+
+Clojure中的字符使用 *UTF-16* 作为内部编码。
+
+** 字符串操作相关库
+   java库 java.lang.String
+   clojure库 clojure.string
+
+** 常用操作函数
+   ~clojure.string/blank?~ 判断是否为空串
+   ~clojure.string/capitalize~ 首字母大写
+   ~clojure.string/upper-case~ 全部字母大写
+   ~clojure.string/lower-case~ 全部字母小写
+
+   ~clojure.string/ trim~  ~triml~ ~trimr~ 删除字符串左/右空格
+   ~clojure.string/replace~ 替换操作, 可以写正则表达式格式，比如 ~#"\s"~
+
+   ~clojure.string/join~ ~str~ 拼接字符串
