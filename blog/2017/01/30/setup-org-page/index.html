@@ -54,9 +54,9 @@
 <div class="post">
 <h1 class="title">setup org-page</h1>
 
-<div id="outline-container-org5ad3084" class="outline-2">
-<h2 id="org5ad3084">Install Org-Page</h2>
-<div class="outline-text-2" id="text-org5ad3084">
+<div id="outline-container-org75fcb07" class="outline-2">
+<h2 id="org75fcb07">Install Org-Page</h2>
+<div class="outline-text-2" id="text-org75fcb07">
 <p>
    First need to delete org package, or it would conflict with new versions,
 then install <b>org-plus-contrib</b>. Could be install by elpa package.
@@ -64,9 +64,9 @@ then install <b>org-plus-contrib</b>. Could be install by elpa package.
 </div>
 </div>
 
-<div id="outline-container-orgda11b6a" class="outline-2">
-<h2 id="orgda11b6a">Setup init.el file</h2>
-<div class="outline-text-2" id="text-orgda11b6a">
+<div id="outline-container-org289ff0f" class="outline-2">
+<h2 id="org289ff0f">Setup init.el file</h2>
+<div class="outline-text-2" id="text-org289ff0f">
 <div class="org-src-container">
 <pre class="src src-elisp">(require 'org-page)
 (setq op/repository-directory "~/pp")
@@ -80,9 +80,9 @@ then install <b>org-plus-contrib</b>. Could be install by elpa package.
 </div>
 </div>
 
-<div id="outline-container-org686ef76" class="outline-2">
-<h2 id="org686ef76">Create a new repository by op/new-repository</h2>
-<div class="outline-text-2" id="text-org686ef76">
+<div id="outline-container-org3a2f9c4" class="outline-2">
+<h2 id="org3a2f9c4">Create a new repository by op/new-repository</h2>
+<div class="outline-text-2" id="text-org3a2f9c4">
 <p>
 Create a new reporsitory, then add github page rep to it.
 </p>
@@ -103,18 +103,18 @@ git branch --set-upstream-to=origin/master master
 </div>
 </div>
 
-<div id="outline-container-orgcf6c05f" class="outline-2">
-<h2 id="orgcf6c05f">Write a new post with op/new-post</h2>
-<div class="outline-text-2" id="text-orgcf6c05f">
+<div id="outline-container-org487296d" class="outline-2">
+<h2 id="org487296d">Write a new post with op/new-post</h2>
+<div class="outline-text-2" id="text-org487296d">
 <pre class="example">
 M-x op/new-post RET
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orge4f6985" class="outline-2">
-<h2 id="orge4f6985">Publish the post with op/do-publication</h2>
-<div class="outline-text-2" id="text-orge4f6985">
+<div id="outline-container-org66dbf2f" class="outline-2">
+<h2 id="org66dbf2f">Publish the post with op/do-publication</h2>
+<div class="outline-text-2" id="text-org66dbf2f">
 <pre class="example">
 M-x op/do-publication
 </pre>
@@ -130,11 +130,11 @@ some questions need to answer.
 </ol>
 </div>
 </div>
-<div id="outline-container-orgc4d1f13" class="outline-2">
-<h2 id="orgc4d1f13">修复RSS pubDate乱码问题</h2>
-<div class="outline-text-2" id="text-orgc4d1f13">
+<div id="outline-container-orgcfb5e94" class="outline-2">
+<h2 id="orgcfb5e94">修复RSS pubDate乱码问题</h2>
+<div class="outline-text-2" id="text-orgcfb5e94">
 <p>
-检查到是=op/update-rss=函数中如下部分返回代码
+检查到是 <code>op/update-rss</code> 函数中如下部分返回代码
 </p>
 <div class="org-src-container">
 <pre class="src src-elisp">(format-time-string "%a, %d %b %Y %T %Z")
@@ -142,13 +142,17 @@ some questions need to answer.
 </div>
 
 <p>
-把`%Z`替换为`%z`修复问题
+把 <code>%Z</code> 替换为 <code>%z</code> 修复问题
+补充: 上面只是一个临时修复方法，问题是由于encoding配置不正确导致的。
+做如下配置可以修复问题:
+<code>(setq locale-coding-system 'cp936)</code>
 </p>
 </div>
 </div>
-<div id="outline-container-org8a616ed" class="outline-2">
-<h2 id="org8a616ed">修改theme</h2>
-<div class="outline-text-2" id="text-org8a616ed">
+
+<div id="outline-container-org0066461" class="outline-2">
+<h2 id="org0066461">修改theme</h2>
+<div class="outline-text-2" id="text-org0066461">
 <p>
 修改为emacs_love后，发现没有代码高亮了，需要做如下修改。
 </p>
@@ -195,7 +199,7 @@ some questions need to answer.
 <div>
   <div class="post-meta">
     <span title="post date" class="post-info">2017-01-30</span>
-    <span title="last modification date" class="post-info">2017-01-31</span>
+    <span title="last modification date" class="post-info">2017-02-01</span>
     <span title="tags" class="post-info"><a href="/tags/emacs/">emacs</a>, <a href="/tags/org-page/">org-page</a>, <a href="/tags/github/">github</a></span>
     <span title="author" class="post-info">ChenYu</span>
   </div>

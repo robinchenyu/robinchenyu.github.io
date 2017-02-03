@@ -4,10 +4,24 @@
     <title>The Blog</title>
     <link>http://blog912.cn</link>
     <description>Emacs, Programming</description>
-    <pubDate>周三, 01 二月 2017 22:16:26 印度标准时间</pubDate>
-    <lastBuildDate>周三, 01 二月 2017 22:16:26 印度标准时间</lastBuildDate>
+    <pubDate>周五, 03 二月 2017 22:44:35 印度标准时间</pubDate>
+    <lastBuildDate>周五, 03 二月 2017 22:44:35 印度标准时间</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Clojure 字符串相关库</title>
+      <link>http://blog912.cn/blog/2017/02/02/clojure-字符串相关库</link>
+      <description><![CDATA[Clojure 字符串操作相关]]></description>
+      <pubDate>2017-02-02</pubDate>
+      <guid>http://blog912.cn/blog/2017/02/02/clojure-字符串相关库</guid>
+    </item>
+    <item>
+      <title>Clojure安装及配置</title>
+      <link>http://blog912.cn/blog/2017/02/01/clojure安装及配置</link>
+      <description><![CDATA[Clojure的安装及配置]]></description>
+      <pubDate>2017-02-02</pubDate>
+      <guid>http://blog912.cn/blog/2017/02/01/clojure安装及配置</guid>
+    </item>
     <item>
       <title>Clojure Cookbook:多重方法</title>
       <link>http://blog912.cn/blog/2017/01/31/clojure-cookbook-多重方法</link>
@@ -23,13 +37,6 @@
       <guid>http://blog912.cn/blog/2017/01/31/clojure-cookbook-multimethods-by-protocol</guid>
     </item>
     <item>
-      <title>Clojure安装及配置</title>
-      <link>http://blog912.cn/blog/2017/02/01/clojure安装及配置</link>
-      <description><![CDATA[Clojure的安装及配置]]></description>
-      <pubDate>2017-02-01</pubDate>
-      <guid>http://blog912.cn/blog/2017/02/01/clojure安装及配置</guid>
-    </item>
-    <item>
       <title>Emacs Setup Tips</title>
       <link>http://blog912.cn/blog/2017/02/01/emacs-setup-tips</link>
       <description><![CDATA[Emacs常用配置]]></description>
@@ -37,18 +44,18 @@
       <guid>http://blog912.cn/blog/2017/02/01/emacs-setup-tips</guid>
     </item>
     <item>
+      <title>setup org-page</title>
+      <link>http://blog912.cn/blog/2017/01/30/setup-org-page</link>
+      <description><![CDATA[Setup org-page and publish to github page]]></description>
+      <pubDate>2017-02-01</pubDate>
+      <guid>http://blog912.cn/blog/2017/01/30/setup-org-page</guid>
+    </item>
+    <item>
       <title>amule installation</title>
       <link>http://blog912.cn/blog/2017/01/31/amule-installation</link>
       <description><![CDATA[install amule and config]]></description>
       <pubDate>2017-01-31</pubDate>
       <guid>http://blog912.cn/blog/2017/01/31/amule-installation</guid>
-    </item>
-    <item>
-      <title>setup org-page</title>
-      <link>http://blog912.cn/blog/2017/01/30/setup-org-page</link>
-      <description><![CDATA[Setup org-page and publish to github page]]></description>
-      <pubDate>2017-01-31</pubDate>
-      <guid>http://blog912.cn/blog/2017/01/30/setup-org-page</guid>
     </item>
   </channel>
 </rss>
