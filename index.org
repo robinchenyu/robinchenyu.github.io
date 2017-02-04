@@ -1,3 +1,3 @@
-#+TITLE: Index
+#+TITLE: Home
 
-This is the home page of .
+写出来的才是自己的
