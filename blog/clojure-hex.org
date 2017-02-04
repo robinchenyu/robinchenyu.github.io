@@ -1,0 +1,22 @@
+#+TITLE:       Clojure进制转换
+#+AUTHOR:
+#+EMAIL:       robin.chenyu@gmail.com
+#+DATE:        2017-02-04 周六
+#+URI:         /blog/%y/%m/%d/clojure进制转换
+#+KEYWORDS:    clojure, hex, dec
+#+TAGS:        clojure, hex, dec
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Clojure进制转换相关问题
+
+*** 表示方式
+    Clojure支持NrXXXX的表示方法，N表示进制，XXXX是数值。十六进制表示如:16rFF, 二进制:2r1011等
+    Clojure也支持java表示方式, 0x表示16进制前缀，0o表示8进制前缀
+    例如:0xFF, 0o77
+
+*** 进制转换
+    10进制和转换16进制:
+    #+BEGIN_SRC clojure
+    (format "%x" 123)
+    ;; => 7b
+    #+END_SRC
