@@ -54,12 +54,12 @@
 <div class="post">
 <h1 class="title">Clojure安装及配置</h1>
 
-<div id="outline-container-org7791527" class="outline-2">
-<h2 id="org7791527">clojure配置repl端口和repo路径</h2>
-<div class="outline-text-2" id="text-org7791527">
-</div><div id="outline-container-org6987434" class="outline-3">
-<h3 id="org6987434">修改repo默认路径</h3>
-<div class="outline-text-3" id="text-org6987434">
+<div id="outline-container-orgc14d623" class="outline-2">
+<h2 id="orgc14d623">clojure配置repl端口和repo路径</h2>
+<div class="outline-text-2" id="text-orgc14d623">
+</div><div id="outline-container-org8904ff4" class="outline-3">
+<h3 id="org8904ff4">修改repo默认路径</h3>
+<div class="outline-text-3" id="text-org8904ff4">
 <p>
 在windows下lein的默认三方包存放路径在%USERPROFIL%/.m2下,windows下的此路径一般是C:/Document and Settings/user,但是lein和emacs在处理路径中的空格时常常出错
 </p>
@@ -97,9 +97,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgc9acef8" class="outline-3">
-<h3 id="orgc9acef8">emacs中设置nrepl默认端口</h3>
-<div class="outline-text-3" id="text-orgc9acef8">
+<div id="outline-container-org3b5d030" class="outline-3">
+<h3 id="org3b5d030">emacs中设置nrepl默认端口</h3>
+<div class="outline-text-3" id="text-org3b5d030">
 <p>
 添加配置, 同时需要修改`cider.el`中=cider-select-endpoint=函数
 </p>
@@ -135,9 +135,9 @@
 </div>
 </div>
 
-<div id="outline-container-org01ffb54" class="outline-4">
-<h4 id="org01ffb54">clojure常用库</h4>
-<div class="outline-text-4" id="text-org01ffb54">
+<div id="outline-container-org4231e7b" class="outline-4">
+<h4 id="org4231e7b">clojure常用库</h4>
+<div class="outline-text-4" id="text-org4231e7b">
 <p>
 <code>lein-try</code> 是一个非常有用的库。比如在了解 <code>clj-time</code> 中的新方法时，遇到困难，需要测试，使用 <code>lein-try</code> 不需要新建一个工程，
 再在工程中添加 <code>lein-try</code>, 直接在使用 <code>lein try clj-time</code> 就可以了。
