@@ -43,7 +43,7 @@
         <li><a href="/rss.xml">RSS</a></li>
       </ul>
     </nav>
-    <form method="get" id="searchform" action="http://www.gfsoso.com/search">
+    <form method="get" id="searchform" action="http://www.google.com/search">
       <input type="text" class="field" name="q" id="s" placeholder="Search">
       <input type="hidden" name="as_sitesearch" value="blog912.cn">
     </form>
@@ -54,9 +54,9 @@
 <div class="post">
 <h1 class="title">setup org-page</h1>
 
-<div id="outline-container-org8e3687d" class="outline-2">
-<h2 id="org8e3687d">Install Org-Page</h2>
-<div class="outline-text-2" id="text-org8e3687d">
+<div id="outline-container-orgbc3205d" class="outline-2">
+<h2 id="orgbc3205d">Install Org-Page</h2>
+<div class="outline-text-2" id="text-orgbc3205d">
 <p>
    First need to delete org package, or it would conflict with new versions,
 then install <b>org-plus-contrib</b>. Could be install by elpa package.
@@ -64,9 +64,9 @@ then install <b>org-plus-contrib</b>. Could be install by elpa package.
 </div>
 </div>
 
-<div id="outline-container-orged0f330" class="outline-2">
-<h2 id="orged0f330">Setup init.el file</h2>
-<div class="outline-text-2" id="text-orged0f330">
+<div id="outline-container-orgd2f826f" class="outline-2">
+<h2 id="orgd2f826f">Setup init.el file</h2>
+<div class="outline-text-2" id="text-orgd2f826f">
 <div class="org-src-container">
 <pre class="src src-elisp">(require 'org-page)
 (setq op/repository-directory "~/pp")
@@ -80,9 +80,9 @@ then install <b>org-plus-contrib</b>. Could be install by elpa package.
 </div>
 </div>
 
-<div id="outline-container-org1d1f89b" class="outline-2">
-<h2 id="org1d1f89b">Create a new repository by op/new-repository</h2>
-<div class="outline-text-2" id="text-org1d1f89b">
+<div id="outline-container-orgaa94097" class="outline-2">
+<h2 id="orgaa94097">Create a new repository by op/new-repository</h2>
+<div class="outline-text-2" id="text-orgaa94097">
 <p>
 Create a new reporsitory, then add github page rep to it.
 </p>
@@ -103,18 +103,18 @@ git branch --set-upstream-to=origin/master master
 </div>
 </div>
 
-<div id="outline-container-org12dc138" class="outline-2">
-<h2 id="org12dc138">Write a new post with op/new-post</h2>
-<div class="outline-text-2" id="text-org12dc138">
+<div id="outline-container-org7ee0273" class="outline-2">
+<h2 id="org7ee0273">Write a new post with op/new-post</h2>
+<div class="outline-text-2" id="text-org7ee0273">
 <pre class="example">
 M-x op/new-post RET
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orgfd20001" class="outline-2">
-<h2 id="orgfd20001">Publish the post with op/do-publication</h2>
-<div class="outline-text-2" id="text-orgfd20001">
+<div id="outline-container-org61a761c" class="outline-2">
+<h2 id="org61a761c">Publish the post with op/do-publication</h2>
+<div class="outline-text-2" id="text-org61a761c">
 <pre class="example">
 M-x op/do-publication
 </pre>
@@ -130,9 +130,9 @@ some questions need to answer.
 </ol>
 </div>
 </div>
-<div id="outline-container-org40a3ae1" class="outline-2">
-<h2 id="org40a3ae1">修复RSS pubDate乱码问题</h2>
-<div class="outline-text-2" id="text-org40a3ae1">
+<div id="outline-container-orgfaf188c" class="outline-2">
+<h2 id="orgfaf188c">修复RSS pubDate乱码问题</h2>
+<div class="outline-text-2" id="text-orgfaf188c">
 <p>
 检查到是 <code>op/update-rss</code> 函数中如下部分返回代码
 </p>
@@ -150,9 +150,9 @@ some questions need to answer.
 </div>
 </div>
 
-<div id="outline-container-org0b3eb8a" class="outline-2">
-<h2 id="org0b3eb8a">修改theme</h2>
-<div class="outline-text-2" id="text-org0b3eb8a">
+<div id="outline-container-org2b40859" class="outline-2">
+<h2 id="org2b40859">修改theme</h2>
+<div class="outline-text-2" id="text-org2b40859">
 <p>
 修改为emacs_love后，发现没有代码高亮了，需要做如下修改。
 </p>
