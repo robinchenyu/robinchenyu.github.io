@@ -54,9 +54,9 @@
 <div class="post">
 <h1 class="title">setup org-page</h1>
 
-<div id="outline-container-org75fcb07" class="outline-2">
-<h2 id="org75fcb07">Install Org-Page</h2>
-<div class="outline-text-2" id="text-org75fcb07">
+<div id="outline-container-org8e3687d" class="outline-2">
+<h2 id="org8e3687d">Install Org-Page</h2>
+<div class="outline-text-2" id="text-org8e3687d">
 <p>
    First need to delete org package, or it would conflict with new versions,
 then install <b>org-plus-contrib</b>. Could be install by elpa package.
@@ -64,9 +64,9 @@ then install <b>org-plus-contrib</b>. Could be install by elpa package.
 </div>
 </div>
 
-<div id="outline-container-org289ff0f" class="outline-2">
-<h2 id="org289ff0f">Setup init.el file</h2>
-<div class="outline-text-2" id="text-org289ff0f">
+<div id="outline-container-orged0f330" class="outline-2">
+<h2 id="orged0f330">Setup init.el file</h2>
+<div class="outline-text-2" id="text-orged0f330">
 <div class="org-src-container">
 <pre class="src src-elisp">(require 'org-page)
 (setq op/repository-directory "~/pp")
@@ -80,9 +80,9 @@ then install <b>org-plus-contrib</b>. Could be install by elpa package.
 </div>
 </div>
 
-<div id="outline-container-org3a2f9c4" class="outline-2">
-<h2 id="org3a2f9c4">Create a new repository by op/new-repository</h2>
-<div class="outline-text-2" id="text-org3a2f9c4">
+<div id="outline-container-org1d1f89b" class="outline-2">
+<h2 id="org1d1f89b">Create a new repository by op/new-repository</h2>
+<div class="outline-text-2" id="text-org1d1f89b">
 <p>
 Create a new reporsitory, then add github page rep to it.
 </p>
@@ -103,18 +103,18 @@ git branch --set-upstream-to=origin/master master
 </div>
 </div>
 
-<div id="outline-container-org487296d" class="outline-2">
-<h2 id="org487296d">Write a new post with op/new-post</h2>
-<div class="outline-text-2" id="text-org487296d">
+<div id="outline-container-org12dc138" class="outline-2">
+<h2 id="org12dc138">Write a new post with op/new-post</h2>
+<div class="outline-text-2" id="text-org12dc138">
 <pre class="example">
 M-x op/new-post RET
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org66dbf2f" class="outline-2">
-<h2 id="org66dbf2f">Publish the post with op/do-publication</h2>
-<div class="outline-text-2" id="text-org66dbf2f">
+<div id="outline-container-orgfd20001" class="outline-2">
+<h2 id="orgfd20001">Publish the post with op/do-publication</h2>
+<div class="outline-text-2" id="text-orgfd20001">
 <pre class="example">
 M-x op/do-publication
 </pre>
@@ -130,9 +130,9 @@ some questions need to answer.
 </ol>
 </div>
 </div>
-<div id="outline-container-orgcfb5e94" class="outline-2">
-<h2 id="orgcfb5e94">修复RSS pubDate乱码问题</h2>
-<div class="outline-text-2" id="text-orgcfb5e94">
+<div id="outline-container-org40a3ae1" class="outline-2">
+<h2 id="org40a3ae1">修复RSS pubDate乱码问题</h2>
+<div class="outline-text-2" id="text-org40a3ae1">
 <p>
 检查到是 <code>op/update-rss</code> 函数中如下部分返回代码
 </p>
@@ -150,9 +150,9 @@ some questions need to answer.
 </div>
 </div>
 
-<div id="outline-container-org0066461" class="outline-2">
-<h2 id="org0066461">修改theme</h2>
-<div class="outline-text-2" id="text-org0066461">
+<div id="outline-container-org0b3eb8a" class="outline-2">
+<h2 id="org0b3eb8a">修改theme</h2>
+<div class="outline-text-2" id="text-org0b3eb8a">
 <p>
 修改为emacs_love后，发现没有代码高亮了，需要做如下修改。
 </p>

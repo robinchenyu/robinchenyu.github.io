@@ -4,10 +4,17 @@
     <title>The Blog</title>
     <link>http://blog912.cn</link>
     <description>Emacs, Programming</description>
-    <pubDate>周五, 03 二月 2017 22:44:35 印度标准时间</pubDate>
-    <lastBuildDate>周五, 03 二月 2017 22:44:35 印度标准时间</lastBuildDate>
+    <pubDate>周六, 04 二月 2017 12:07:20 印度标准时间</pubDate>
+    <lastBuildDate>周六, 04 二月 2017 12:07:20 印度标准时间</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Clojure进制转换</title>
+      <link>http://blog912.cn/blog/2017/02/04/clojure进制转换</link>
+      <description><![CDATA[Clojure进制转换相关问题]]></description>
+      <pubDate>2017-02-04</pubDate>
+      <guid>http://blog912.cn/blog/2017/02/04/clojure进制转换</guid>
+    </item>
     <item>
       <title>Clojure 字符串相关库</title>
       <link>http://blog912.cn/blog/2017/02/02/clojure-字符串相关库</link>
