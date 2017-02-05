@@ -1,0 +1,22 @@
+#+TITLE:       React Tutorial
+#+AUTHOR:
+#+EMAIL:       robin.chenyu@gmail.com
+#+DATE:        2017-02-05 周日
+#+URI:         /blog/%y/%m/%d/react-tutorial
+#+KEYWORDS:    javascript, react, tutorial
+#+TAGS:        javascript, react, tutorial
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: React Tutorial翻译及学习
+
+* Hello World
+  学习React最简单的方法从Hello World开始，不用单独安装，直接使用[[http://codepen.io/gaearon/pen/ZpvBNJ?editors=0010][codePen]] 即可。
+
+  下面是最简短的程序示例, 如下:
+  #+BEGIN_SRC javascript
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('root')
+);
+  #+END_SRC
+  上面示例会渲染 ~<h1>~ 为"Hello, world!"
