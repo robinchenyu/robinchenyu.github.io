@@ -57,4 +57,4 @@
       #+END_SRC
 
 
-[[参考:]] [[https://www.ibm.com/developerworks/cn/web/wa-clojure/][Clojure 与并发性]]
+参考: [[https://www.ibm.com/developerworks/cn/web/wa-clojure/][Clojure 与并发性]]
