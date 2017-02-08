@@ -1,0 +1,60 @@
+#+TITLE:       Clojure的并发操作
+#+AUTHOR:
+#+EMAIL:       robin.chenyu@gmail.com
+#+DATE:        2017-02-08 周三
+#+URI:         /blog/%y/%m/%d/clojure的并发操作
+#+KEYWORDS:    clojure, sync, 并发
+#+TAGS:        clojure, sync, 并发
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Clojure并发操作模型
+
+* Clojure的并发
+** 本地变量
+   本地变量使用binding, 此为线程内部可见新绑定的值，其他线程无可见。
+   1. 变量声明不做任何修改
+   2. binding和let的语法类似，给已有变量赋值
+** atom变量
+   原子变量, 使用时一旦修改，所有线程读取的值都改变。
+   1. 变量声明时使用atom修饰
+      #+BEGIN_SRC clojure
+      (def droid (atom (struct item "Droid X" 0)))
+      #+END_SRC
+   2. 在使用时，变量前需要添加 ~@~ 符号, 这告知 Clojure 取消对指针的引用，并给出真实值。(这里的 ~@~ 和宏里面的 ~@~ 有关系吗?)
+   3. 使用reset!修改atom变量的取值
+      #+BEGIN_SRC clojure
+      (reset! droid (assoc @droid :current-price (get offer :amount))))
+      #+END_SRC
+** ref事务
+   在事务操作内，ref相关的变量要么不改变值，要么同时改变值。
+   1. 变量声明时使用ref修饰
+      #+BEGIN_SRC clojure
+      (def droid (ref (struct item "Droid X" 0)))
+      #+END_SRC
+   2. 使用时同样需要使用 ~@~
+   3. 使用 ~ref-set~ 修改ref变量值, ref必须在dosync block内做修改
+      #+BEGIN_SRC clojure
+      (dosync
+    (ref-set droid (assoc @droid :current-price (get offer :amount)))
+    (ref-set history (cons offer @history))
+    )
+      #+END_SRC
+
+** 异步agent
+   异步操作，把修改变量值得操作函数发送给变量。
+   1. 变量声明时使用agent修饰
+      #+BEGIN_SRC clojure
+      (def droid (agent (struct item "Droid X" 0)))
+      #+END_SRC
+   2. 使用时需要使用 ~@~
+   3. 使用 ~send~ 修改变量值
+      #+BEGIN_SRC clojure
+      (send droid #(assoc % :current-price (get offer :amount)))
+      #+END_SRC
+   4. 使用 await 等待确保send执行结束
+      #+BEGIN_SRC clojure
+      (await droid)
+      #+END_SRC
+
+
+[[参考:]] [[https://www.ibm.com/developerworks/cn/web/wa-clojure/][Clojure 与并发性]]
