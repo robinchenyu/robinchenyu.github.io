@@ -4,10 +4,24 @@
     <title>The Blog</title>
     <link>http://blog912.cn</link>
     <description>Emacs, Programming</description>
-    <pubDate>周六, 04 二月 2017 14:25:33 印度标准时间</pubDate>
-    <lastBuildDate>周六, 04 二月 2017 14:25:33 印度标准时间</lastBuildDate>
+    <pubDate>周三, 08 二月 2017 20:11:10 印度标准时间</pubDate>
+    <lastBuildDate>周三, 08 二月 2017 20:11:10 印度标准时间</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Clojure的并发操作</title>
+      <link>http://blog912.cn/blog/2017/02/08/clojure的并发操作</link>
+      <description><![CDATA[Clojure并发操作模型]]></description>
+      <pubDate>2017-02-08</pubDate>
+      <guid>http://blog912.cn/blog/2017/02/08/clojure的并发操作</guid>
+    </item>
+    <item>
+      <title>React Tutorial</title>
+      <link>http://blog912.cn/blog/2017/02/05/react-tutorial</link>
+      <description><![CDATA[React Tutorial翻译及学习]]></description>
+      <pubDate>2017-02-05</pubDate>
+      <guid>http://blog912.cn/blog/2017/02/05/react-tutorial</guid>
+    </item>
     <item>
       <title>Clojure进制转换</title>
       <link>http://blog912.cn/blog/2017/02/04/clojure进制转换</link>
