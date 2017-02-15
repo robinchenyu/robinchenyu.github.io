@@ -54,9 +54,9 @@
 <div class="post">
 <h1 class="title">Clojure Cookbook:多重方法</h1>
 
-<div id="outline-container-org1cda639" class="outline-2">
-<h2 id="org1cda639">在clojure语言中的多重方法定义, 先看一个最简单的实现方式:</h2>
-<div class="outline-text-2" id="text-org1cda639">
+<div id="outline-container-org32ee09d" class="outline-2">
+<h2 id="org32ee09d">在clojure语言中的多重方法定义, 先看一个最简单的实现方式:</h2>
+<div class="outline-text-2" id="text-org32ee09d">
 <div class="org-src-container">
 <pre class="src src-clojure">(defn area
   "计算多边形面积"
@@ -76,7 +76,7 @@
 
 <p>
 用上面的方法可以实现函数调用分发，但是area定义有些繁琐，利用lisp语言的灵活性，可以用宏把area函数精简。Clojure语言有已经实现好的defmulti和defmethod宏。
-其中defmulti在定义中的最后一个参数`:type`是作为函数传入的，也可以定义为<a href="#org81fb2b8">a</a>
+其中defmulti在定义中的最后一个参数`:type`是作为函数传入的，也可以定义为<a href="#org6335c7a">a</a>
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure">(defmulti area
@@ -104,7 +104,7 @@
 </div>
 
 <p>
-<span class="underline">a</span>. <a id="org81fb2b8"></a> 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
+<span class="underline">a</span>. <a id="org6335c7a"></a> 在使用defmulti定义时使用的:type参数其实是函数，由于入参shape是一个字典，实际运行是(:type shape);这里也可以如下定义
 </p>
 <div class="org-src-container">
 <pre class="src src-clojure">(defmulti area (fn [shape] (:type shape)))
