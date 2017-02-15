@@ -1,0 +1,53 @@
+#+TITLE:       Using Fabric set ssh passwdless
+#+AUTHOR:
+#+EMAIL:       robin.chenyu@gmail.com
+#+DATE:        2017-02-15 周三
+#+URI:         /blog/%y/%m/%d/using-fabric-set-ssh-passwdless
+#+KEYWORDS:    ssh, key, passwd
+#+TAGS:        ssh, key, passwd
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: 使用fabric工具配置ssh免密码登录
+
+** must setup the localhost keygen
+   generate keys for localhost
+   #+BEGIN_SRC bash
+   ssh-keygen -t rsa
+   #+END_SRC
+
+** setup passwdless in remote servers
+   the script set_pass.py is like below:
+   #+BEGIN_SRC python
+from fabric.api import *
+from fabric.contrib.files import *
+
+
+user = 'user'
+env.password = 'password'
+
+env.hosts=[]
+for ip in range(232, 240):
+    env.hosts.append('%s@192.146.156.%d' % (user, ip))
+
+def setpass():
+        local("rm -rf passwd_set/authorized_keys")
+        home = os.getenv("HOME")
+        with open("%s/.ssh/id_rsa.pub" % home, "r") as fr:
+                key = fr.read()
+        get("~/.ssh/*", "passwd_set/.")
+        local("touch passwd_set/authorized_keys")
+        exists1 = False
+        with open("passwd_set/authorized_keys", "r") as fr:
+                if key in fr.read():
+                        exists1 = True
+        if not exists1:
+                with open("passwd_set/authorized_keys", "a") as fw:
+                        fw.write(key)
+                put("passwd_set/authorized_keys", "~/.ssh/")
+
+   #+END_SRC
+
+   in the bash shell, could run the fabric to set servers passwdless in batch
+   #+BEGIN_SRC bash
+   fab -f set_pass.py setpass
+   #+END_SRC
