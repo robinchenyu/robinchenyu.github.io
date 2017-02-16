@@ -54,12 +54,12 @@
 <div class="post">
 <h1 class="title">Clojure的并发操作</h1>
 
-<div id="outline-container-orgacec7b3" class="outline-2">
-<h2 id="orgacec7b3">Clojure的并发</h2>
-<div class="outline-text-2" id="text-orgacec7b3">
-</div><div id="outline-container-org7d3204d" class="outline-3">
-<h3 id="org7d3204d">本地变量</h3>
-<div class="outline-text-3" id="text-org7d3204d">
+<div id="outline-container-org598beac" class="outline-2">
+<h2 id="org598beac">Clojure的并发</h2>
+<div class="outline-text-2" id="text-org598beac">
+</div><div id="outline-container-org2f3083d" class="outline-3">
+<h3 id="org2f3083d">本地变量</h3>
+<div class="outline-text-3" id="text-org2f3083d">
 <p>
 本地变量使用binding, 此为线程内部可见新绑定的值，其他线程无可见。
 </p>
@@ -69,9 +69,9 @@
 </ol>
 </div>
 </div>
-<div id="outline-container-orgcc62632" class="outline-3">
-<h3 id="orgcc62632">atom变量</h3>
-<div class="outline-text-3" id="text-orgcc62632">
+<div id="outline-container-org83650ea" class="outline-3">
+<h3 id="org83650ea">atom变量</h3>
+<div class="outline-text-3" id="text-org83650ea">
 <p>
 原子变量, 使用时一旦修改，所有线程读取的值都改变。
 </p>
@@ -94,9 +94,9 @@
 </ol>
 </div>
 </div>
-<div id="outline-container-orga10000e" class="outline-3">
-<h3 id="orga10000e">ref事务</h3>
-<div class="outline-text-3" id="text-orga10000e">
+<div id="outline-container-org2374416" class="outline-3">
+<h3 id="org2374416">ref事务</h3>
+<div class="outline-text-3" id="text-org2374416">
 <p>
 在事务操作内，ref相关的变量要么不改变值，要么同时改变值。
 </p>
@@ -123,9 +123,9 @@
 </div>
 </div>
 
-<div id="outline-container-org7e4291c" class="outline-3">
-<h3 id="org7e4291c">异步agent</h3>
-<div class="outline-text-3" id="text-org7e4291c">
+<div id="outline-container-orga345a09" class="outline-3">
+<h3 id="orga345a09">异步agent</h3>
+<div class="outline-text-3" id="text-orga345a09">
 <p>
 异步操作，把修改变量值得操作函数发送给变量。
 </p>
