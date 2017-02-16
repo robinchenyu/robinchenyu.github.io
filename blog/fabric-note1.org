@@ -1,0 +1,20 @@
+#+TITLE:       Fabric warn_only设置
+#+AUTHOR:
+#+EMAIL:       robin.chenyu@gmail.com
+#+DATE:        2017-02-16 周四
+#+URI:         /blog/%y/%m/%d/fabric-warn_only设置
+#+KEYWORDS:    python, fabric, warn_only
+#+TAGS:        python, fabric, warn_only
+#+LANGUAGE:    en
+#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
+#+DESCRIPTION: Fabric脚本中避免告警时中断运行, 打印出错日志的方法
+
+** 使用worn_only控制出错
+   使用fabric脚本非常部署项目非常方便, 但是fabric默认会判断返回值，如果返回值
+   不为0则会导致脚本中断执行
+   使用方法如下
+   #+BEGIN_SRC python
+   with setings(warn_only=True):
+       run("ls noexistdir")
+   #+END_SRC
+   这时在访问一个不存在的文件夹并不会停止脚本，会继续执行下面的动作，但是会打印出错误日志。
