@@ -1,0 +1,3 @@
+baseurl = "http://blog912.cn"
+# theme = "heather-hugo"
+theme = "hugo-redlounge"
