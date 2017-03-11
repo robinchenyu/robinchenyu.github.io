@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
   <title>
-    使用fabric工具配置ssh免密码登录 // 
+    hugo setup // 
   </title>
 
   <link href="http://gmpg.org/xfn/11" rel="profile">
@@ -16,11 +16,11 @@
 <meta name="author" content="">
 <meta name="generator" content="Hugo 0.20-DEV" />
 
-  <meta property="og:title" content="使用fabric工具配置ssh免密码登录" />
+  <meta property="og:title" content="hugo setup" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:url" content="http://blog912.cn/python/fabric-set-ssh-passwdless/" />
+<meta property="og:url" content="http://blog912.cn/hugo/hugo_setup/" />
 
 
   
@@ -103,8 +103,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#must-setup-the-localhost-keygen">must setup the localhost keygen</a></li>
-<li><a href="#setup-passwdless-in-remote-servers">setup passwdless in remote servers</a></li>
+<li><a href="#hugo-initial">hugo initial</a></li>
+<li><a href="#hugo-new-post">hugo new post</a></li>
+<li><a href="#hugo-publish">hugo publish</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -114,14 +115,14 @@
 	    
   		<section class="post">
             <h1 class="post-title">
-              <a href="/python/fabric-set-ssh-passwdless/">使用fabric工具配置ssh免密码登录</a>
+              <a href="/hugo/hugo_setup/">hugo setup</a>
             </h1>
             <h3 class="post-subtitle">
             	
             </h3>
             
             	<span class="post-date">
-                	<span class="post-date-day"><sup>15</sup></span><span class="post-date-separator">/</span><span class="post-date-month">Feb</span> <span class="post-date-year">2017</span>
+                	<span class="post-date-day"><sup>11</sup></span><span class="post-date-separator">/</span><span class="post-date-month">Mar</span> <span class="post-date-year">2017</span>
             	</span>
             	
             
@@ -137,49 +138,21 @@
 
             
 
-<h3 id="must-setup-the-localhost-keygen">must setup the localhost keygen</h3>
+<h3 id="hugo-initial">hugo initial</h3>
 
-<p>generate keys for localhost</p>
-
-<pre><code class="language-bash">ssh-keygen -t rsa
+<pre><code class="language-bash">hugo new site mysite
 </code></pre>
 
-<h3 id="setup-passwdless-in-remote-servers">setup passwdless in remote servers</h3>
+<h3 id="hugo-new-post">hugo new post</h3>
 
-<p>the script set_pass.py is like below:</p>
-
-<pre><code class="language-python">from fabric.api import *
-from fabric.contrib.files import *
-
-
-user = 'user'
-env.password = 'password'
-
-env.hosts=[]
-for ip in range(232, 240):
-    env.hosts.append('%s@192.146.156.%d' % (user, ip))
-
-def setpass():
-        local(&quot;rm -rf passwd_set/authorized_keys&quot;)
-        home = os.getenv(&quot;HOME&quot;)
-        with open(&quot;%s/.ssh/id_rsa.pub&quot; % home, &quot;r&quot;) as fr:
-                key = fr.read()
-        get(&quot;~/.ssh/*&quot;, &quot;passwd_set/.&quot;)
-        local(&quot;touch passwd_set/authorized_keys&quot;)
-        exists1 = False
-        with open(&quot;passwd_set/authorized_keys&quot;, &quot;r&quot;) as fr:
-                if key in fr.read():
-                        exists1 = True
-        if not exists1:
-                with open(&quot;passwd_set/authorized_keys&quot;, &quot;a&quot;) as fw:
-                        fw.write(key)
-                put(&quot;passwd_set/authorized_keys&quot;, &quot;~/.ssh/&quot;)
-
+<pre><code class="language-bash">cd /path/to/mysite
+hugo new post/hugo_setup.md
 </code></pre>
 
-<p>in the bash shell, could run the fabric to set servers passwdless in batch</p>
+<h3 id="hugo-publish">hugo publish</h3>
 
-<pre><code class="language-bash">fab -f set_pass.py setpass
+<pre><code class="language-bash">hugo 
+# it would produce static pages in public directory
 </code></pre>
 
 	
@@ -191,13 +164,13 @@ def setpass():
 				<div class="paging">
 					<span class="paging-label">More Reading</span>
 					
-					<div class="paging-newer">
-						<span class="dark-red">Newer</span><span class="decorative-marker">//</span>
-						<a class="paging-link" href="/hugo/hugo_setup/">hugo setup</a>
-		            </div>
-		            
 
 					
+					<div class="paging-older">
+						<span class="dark-red">Older</span><span class="decorative-marker">//</span>
+			            <a class="paging-link" href="/python/fabric-set-ssh-passwdless/">使用fabric工具配置ssh免密码登录</a>
+		            </div>
+		            
 	            </div>
             
           </section>
