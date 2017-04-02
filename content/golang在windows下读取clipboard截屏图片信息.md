@@ -83,7 +83,7 @@ var (
     }
 ```
 
-[代码](https://github.com/robinchenyu/clipboard_go/main.go)
+[代码](https://github.com/robinchenyu/clipboard_go/blob/master/main.go)
 
 
 
