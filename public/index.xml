@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://blog912.cn/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 11 Mar 2017 22:33:54 +0530</lastBuildDate>
+    <atom:link href="http://blog912.cn/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>hugo setup</title>
+      <link>http://blog912.cn/hugo/hugo_setup/</link>
+      <pubDate>Sat, 11 Mar 2017 22:33:54 +0530</pubDate>
+      
+      <guid>http://blog912.cn/hugo/hugo_setup/</guid>
+      <description>
+
+&lt;h3 id=&#34;hugo-initial&#34;&gt;hugo initial&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;hugo new site mysite
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;hugo-new-post&#34;&gt;hugo new post&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /path/to/mysite
+hugo new post/hugo_setup.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;hugo-publish&#34;&gt;hugo publish&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;hugo 
+# it would produce static pages in public directory
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用fabric工具配置ssh免密码登录</title>
+      <link>http://blog912.cn/python/fabric-set-ssh-passwdless/</link>
+      <pubDate>Wed, 15 Feb 2017 08:36:54 +0530</pubDate>
+      
+      <guid>http://blog912.cn/python/fabric-set-ssh-passwdless/</guid>
+      <description>
+
+&lt;h3 id=&#34;must-setup-the-localhost-keygen&#34;&gt;must setup the localhost keygen&lt;/h3&gt;
+
+&lt;p&gt;generate keys for localhost&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ssh-keygen -t rsa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;setup-passwdless-in-remote-servers&#34;&gt;setup passwdless in remote servers&lt;/h3&gt;
+
+&lt;p&gt;the script set_pass.py is like below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from fabric.api import *
+from fabric.contrib.files import *
+
+
+user = &#39;user&#39;
+env.password = &#39;password&#39;
+
+env.hosts=[]
+for ip in range(232, 240):
+    env.hosts.append(&#39;%s@192.146.156.%d&#39; % (user, ip))
+
+def setpass():
+        local(&amp;quot;rm -rf passwd_set/authorized_keys&amp;quot;)
+        home = os.getenv(&amp;quot;HOME&amp;quot;)
+        with open(&amp;quot;%s/.ssh/id_rsa.pub&amp;quot; % home, &amp;quot;r&amp;quot;) as fr:
+                key = fr.read()
+        get(&amp;quot;~/.ssh/*&amp;quot;, &amp;quot;passwd_set/.&amp;quot;)
+        local(&amp;quot;touch passwd_set/authorized_keys&amp;quot;)
+        exists1 = False
+        with open(&amp;quot;passwd_set/authorized_keys&amp;quot;, &amp;quot;r&amp;quot;) as fr:
+                if key in fr.read():
+                        exists1 = True
+        if not exists1:
+                with open(&amp;quot;passwd_set/authorized_keys&amp;quot;, &amp;quot;a&amp;quot;) as fw:
+                        fw.write(key)
+                put(&amp;quot;passwd_set/authorized_keys&amp;quot;, &amp;quot;~/.ssh/&amp;quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;in the bash shell, could run the fabric to set servers passwdless in batch&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;fab -f set_pass.py setpass
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://blog912.cn/hugo_sublime_plugin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog912.cn/hugo_sublime_plugin/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
