@@ -92,6 +92,8 @@ binary.Write(data, binary.LittleEndian, uint16(&#39;B&#39;)|(uint16(&#39;M&#39;)
         log.Fatal(err)
     }
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/robinchenyu/clipboard_go/main.go&#34;&gt;代码&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
