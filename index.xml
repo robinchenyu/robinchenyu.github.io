@@ -14,53 +14,53 @@
       <pubDate>Wed, 29 Mar 2017 22:42:54 +0530</pubDate>
       
       <guid>http://blog912.cn/golang%E5%9C%A8windows%E4%B8%8B%E8%AF%BB%E5%8F%96clipboard%E6%88%AA%E5%B1%8F%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/</guid>
-      <description>&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;package clipboard
+      <description>
 
-import (
-    &amp;quot;bytes&amp;quot;
-    &amp;quot;encoding/binary&amp;quot;
-    &amp;quot;fmt&amp;quot;
-    &amp;quot;log&amp;quot;
-    &amp;quot;os&amp;quot;
-    &amp;quot;syscall&amp;quot;
-    &amp;quot;unsafe&amp;quot;
-    // &amp;quot;bufio&amp;quot;
-    &amp;quot;golang.org/x/image/bmp&amp;quot;
-    &amp;quot;image/jpeg&amp;quot;
-    // &amp;quot;github.com/anthonynsimon/bild/imgio&amp;quot;
-)
+&lt;h3 id=&#34;golang二进制处理&#34;&gt;golang二进制处理&lt;/h3&gt;
 
-const (
-    cfBitmap      = 2
-    cfDib         = 8
-    cfUnicodetext = 13
-    cfDibV5       = 17
-    gmemFixed     = 0x0000
-)
+&lt;p&gt;使用&amp;rsquo;encoding/binary&amp;rsquo;包，和bytes.Buffer配置。&lt;/p&gt;
 
-type fileHeader struct {
-    bfType      uint16
-    bfSize      uint32
-    bfReserved1 uint16
-    bfReserved2 uint16
-    bfOffBits   uint32
-}
+&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;import &amp;quot;encoding/binary&amp;quot;
 
-type infoHeader struct {
-    iSize          uint32
-    iWidth         uint32
-    iHeight        uint32
-    iPLanes        uint16
-    iBitCount      uint16
-    iCompression   uint32
-    iSizeImage     uint32
+data := new(bytes.Buffer)
+binary.Write(data, binary.LittleEndian, uint16(&#39;B&#39;)|(uint16(&#39;M&#39;)&amp;lt;&amp;lt;8))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;golang从windows下的clipboard中抓取图片&#34;&gt;golang从windows下的clipboard中抓取图片&lt;/h3&gt;
+
+&lt;p&gt;windows下的clipboard保存的图片信息是dib结构，保存有bmpinfoheader信息头和pixel图片信息。&lt;/p&gt;
+
+&lt;p&gt;其中bmpinfoheader信息格式如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;type infoHeader struct {
+    iSize          uint32 // infoheader 长度，40
+    iWidth         uint32 // 图片宽度
+    iHeight        uint32 // 图片高度
+    iPLanes        uint16 
+    iBitCount      uint16 // 每个像素颜色占用空间
+    iCompression   uint32 // 图片压缩格式，dib中一般为0或者为3
+    iSizeImage     uint32 // 图片pixel占用大小
     iXPelsPerMeter uint32
     iYPelsPerMeter uint32
     iClrUsed       uint32
     iClrImportant  uint32
 }
+&lt;/code&gt;&lt;/pre&gt;
 
-var (
+&lt;p&gt;需要根据bmpinfoheader计算出bmp图片的fileheader，并放在bmp图片的头部。fileheader格式如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;type fileHeader struct {
+    bfType      uint16 // 恒定为&#39;BM&#39;
+    bfSize      uint32 // bmp整个文件大小
+    bfReserved1 uint16 
+    bfReserved2 uint16
+    bfOffBits   uint32 // pixel信息开始的偏移量
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;读取clipboard中图片信息，需要用到win32的api，如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;var (
     user32                     = syscall.MustLoadDLL(&amp;quot;user32&amp;quot;)
     openClipboard              = user32.MustFindProc(&amp;quot;OpenClipboard&amp;quot;)
     closeClipboard             = user32.MustFindProc(&amp;quot;CloseClipboard&amp;quot;)
@@ -77,144 +77,20 @@ var (
     lstrcpy      = kernel32.NewProc(&amp;quot;lstrcpyW&amp;quot;)
     copyMemory   = kernel32.NewProc(&amp;quot;CopyMemory&amp;quot;)
 )
+&lt;/code&gt;&lt;/pre&gt;
 
-func copyInfoHdr(dst *byte, psrc *infoHeader) (string, error) {
+&lt;p&gt;由于bmp图片信息为压缩，比较占用空间，一般保存到电脑上，可以使用jpg格式，golang bmp转jpg格式非常简单, 需要使用到&amp;rdquo;golang.org/x/image/bmp&amp;rdquo;
+和&amp;rdquo;image/jpeg&amp;rdquo;包&lt;/p&gt;
 
-    pdst := (*infoHeader)(unsafe.Pointer(dst))
-
-    pdst.iSize = psrc.iSize
-    pdst.iWidth = psrc.iWidth
-    pdst.iHeight = psrc.iHeight
-    pdst.iPLanes = psrc.iPLanes
-    pdst.iBitCount = psrc.iBitCount
-    pdst.iCompression = psrc.iCompression
-    pdst.iSizeImage = psrc.iSizeImage
-    pdst.iXPelsPerMeter = psrc.iXPelsPerMeter
-    pdst.iYPelsPerMeter = psrc.iYPelsPerMeter
-    pdst.iClrUsed = psrc.iClrUsed
-    pdst.iClrImportant = psrc.iClrImportant
-
-    return &amp;quot;copy infoHeader success&amp;quot;, nil
-}
-
-func readUint16(b []byte) uint16 {
-    return uint16(b[0]) | uint16(b[1])&amp;lt;&amp;lt;8
-}
-
-func readUint32(b []byte) uint32 {
-    return uint32(b[0]) | uint32(b[1])&amp;lt;&amp;lt;8 | uint32(b[2])&amp;lt;&amp;lt;16 | uint32(b[3])&amp;lt;&amp;lt;24
-}
-
-func readClipboard(filename string) (string, error) {
-    const (
-        fileHeaderLen = 14
-        infoHeaderLen = 40
-    )
-
-    r, _, err := openClipboard.Call(0)
-    if r == 0 {
-        return &amp;quot;openClipboard&amp;quot;, err
-    }
-    defer closeClipboard.Call()
-
-    // check whether clipboard data is dib format
-    r, _, err = isClipboardFormatAvailable.Call(cfDib)
-    if r == 0 {
-        return &amp;quot;not Dib format&amp;quot;, err
-    }
-
-    h, _, err := getClipboardData.Call(cfDib)
-    if r == 0 {
-        return &amp;quot;getClipboardData&amp;quot;, err
-    }
-
-    // get dib data
-    pdata, _, err := globalLock.Call(h)
-    if pdata == 0 {
-        return &amp;quot;writeToFile globalLock failed!&amp;quot;, err
-    }
-
-    // the first 40 bytes are bmp info header
-    h2 := (*infoHeader)(unsafe.Pointer(pdata))
-
-    fmt.Println(h2)
-
-    // bmp file size should consist of fileheader 14 bytes, bmpinfoheader 40 bytes,
-    // and pixel data size
-    dataSize := h2.iSizeImage + fileHeaderLen + infoHeaderLen
-
-    // check for raw compression data without sizeimage provided condition
-    if h2.iSizeImage == 0 &amp;amp;&amp;amp; h2.iCompression == 0 {
-        // width*bitcount should be 4 byte align
-        iSizeImage := h2.iHeight * ((h2.iWidth*uint32(h2.iBitCount)/8 + 3) &amp;amp;^ 3)
-        dataSize += iSizeImage
-    }
-
-    log.Println(&amp;quot;datasize: &amp;quot;, dataSize, h2.iHeight*((h2.iWidth*uint32(h2.iBitCount)/8+3)&amp;amp;^3))
-    // data := make([]byte, dataSize)
-
-    // var hdr *fileHeader
-    data := new(bytes.Buffer)
-    // hdr := (*bytes.Buffer)(unsafe.Pointer(&amp;amp;data[0]))
-    binary.Write(data, binary.LittleEndian, uint16(&#39;B&#39;)|(uint16(&#39;M&#39;)&amp;lt;&amp;lt;8))
-
-    // filesize
-    binary.Write(data, binary.LittleEndian, uint32(dataSize))
-    binary.Write(data, binary.LittleEndian, uint32(0))
-    const sizeof_colorbar = 0
-
-    // offset 
-    binary.Write(data, binary.LittleEndian, uint32(fileHeaderLen+infoHeaderLen+sizeof_colorbar))
-    log.Println(&amp;quot;fileHeader &amp;quot;, data.Bytes(), len(data.Bytes()))
-
-    // log.Println(&amp;quot;header: &amp;quot;, hdr, data[:8])
-    // log.Print(&amp;quot;bfOffBits &amp;quot;, hdr.bfOffBits)
-    // copyInfoHdr(&amp;amp;data[fileHeaderLen], h2)
-    j := 0
-    for i := fileHeaderLen; i &amp;lt; int(dataSize); i++ {
-        binary.Write(data, binary.LittleEndian, *(*byte)(unsafe.Pointer(pdata + uintptr(j))))
-        j++
-    }
-
-    for i := 0; i &amp;lt; 12; i++ {
-        // binary.Write(data, binary.LittleEndian, byte(0))
-    }
-
-    fmt.Println(data.Bytes()[:60])
-    // fmt.Println(data.Bytes()[1196900:])
-
-    saveAs(data, &amp;quot;testjpg.jpg&amp;quot;)
-
-    return &amp;quot;success&amp;quot;, nil
-}
-
-func saveAs(dat *bytes.Buffer, filename string) (string, error) {
-    // var buf bytes.Buffer
-    // buf.Write(dat)
-    // f, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0755)
-    f, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0755)
+&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;    original_image, err := bmp.Decode(dat)
     if err != nil {
         log.Fatal(err)
     }
 
-    log.Println(&amp;quot;try decode&amp;quot;)
-    original_image, err := bmp.Decode(dat)
+    err = jpeg.Encode(f, original_image, nil) // f为二进制写权限打开的文件句柄
     if err != nil {
         log.Fatal(err)
     }
-    log.Println(&amp;quot;decode success&amp;quot;)
-
-    err = jpeg.Encode(f, original_image, nil)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    if err := f.Close(); err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println(&amp;quot;write file %s success&amp;quot;, filename)
-    return &amp;quot;succ&amp;quot;, nil
-}
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

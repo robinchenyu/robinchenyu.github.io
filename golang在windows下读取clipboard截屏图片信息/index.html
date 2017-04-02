@@ -95,6 +95,22 @@
 
 		
 			
+		    <div id="toc" class="pure-u-1 pure-u-md-1-4">
+				<small class="toc-label">Contents</small>
+		   	 	<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#golang二进制处理">golang二进制处理</a></li>
+<li><a href="#golang从windows下的clipboard中抓取图片">golang从windows下的clipboard中抓取图片</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+		    </div>
+		    
 	    
   		<section class="post">
             <h1 class="post-title">
@@ -119,53 +135,53 @@
 
 			
 
-            <pre><code class="language-golang">package clipboard
+            
 
-import (
-    &quot;bytes&quot;
-    &quot;encoding/binary&quot;
-    &quot;fmt&quot;
-    &quot;log&quot;
-    &quot;os&quot;
-    &quot;syscall&quot;
-    &quot;unsafe&quot;
-    // &quot;bufio&quot;
-    &quot;golang.org/x/image/bmp&quot;
-    &quot;image/jpeg&quot;
-    // &quot;github.com/anthonynsimon/bild/imgio&quot;
-)
+<h3 id="golang二进制处理">golang二进制处理</h3>
 
-const (
-    cfBitmap      = 2
-    cfDib         = 8
-    cfUnicodetext = 13
-    cfDibV5       = 17
-    gmemFixed     = 0x0000
-)
+<p>使用&rsquo;encoding/binary&rsquo;包，和bytes.Buffer配置。</p>
 
-type fileHeader struct {
-    bfType      uint16
-    bfSize      uint32
-    bfReserved1 uint16
-    bfReserved2 uint16
-    bfOffBits   uint32
-}
+<pre><code class="language-golang">import &quot;encoding/binary&quot;
 
-type infoHeader struct {
-    iSize          uint32
-    iWidth         uint32
-    iHeight        uint32
-    iPLanes        uint16
-    iBitCount      uint16
-    iCompression   uint32
-    iSizeImage     uint32
+data := new(bytes.Buffer)
+binary.Write(data, binary.LittleEndian, uint16('B')|(uint16('M')&lt;&lt;8))
+</code></pre>
+
+<h3 id="golang从windows下的clipboard中抓取图片">golang从windows下的clipboard中抓取图片</h3>
+
+<p>windows下的clipboard保存的图片信息是dib结构，保存有bmpinfoheader信息头和pixel图片信息。</p>
+
+<p>其中bmpinfoheader信息格式如下:</p>
+
+<pre><code class="language-golang">type infoHeader struct {
+    iSize          uint32 // infoheader 长度，40
+    iWidth         uint32 // 图片宽度
+    iHeight        uint32 // 图片高度
+    iPLanes        uint16 
+    iBitCount      uint16 // 每个像素颜色占用空间
+    iCompression   uint32 // 图片压缩格式，dib中一般为0或者为3
+    iSizeImage     uint32 // 图片pixel占用大小
     iXPelsPerMeter uint32
     iYPelsPerMeter uint32
     iClrUsed       uint32
     iClrImportant  uint32
 }
+</code></pre>
 
-var (
+<p>需要根据bmpinfoheader计算出bmp图片的fileheader，并放在bmp图片的头部。fileheader格式如下:</p>
+
+<pre><code class="language-golang">type fileHeader struct {
+    bfType      uint16 // 恒定为'BM'
+    bfSize      uint32 // bmp整个文件大小
+    bfReserved1 uint16 
+    bfReserved2 uint16
+    bfOffBits   uint32 // pixel信息开始的偏移量
+}
+</code></pre>
+
+<p>读取clipboard中图片信息，需要用到win32的api，如下:</p>
+
+<pre><code class="language-golang">var (
     user32                     = syscall.MustLoadDLL(&quot;user32&quot;)
     openClipboard              = user32.MustFindProc(&quot;OpenClipboard&quot;)
     closeClipboard             = user32.MustFindProc(&quot;CloseClipboard&quot;)
@@ -182,144 +198,20 @@ var (
     lstrcpy      = kernel32.NewProc(&quot;lstrcpyW&quot;)
     copyMemory   = kernel32.NewProc(&quot;CopyMemory&quot;)
 )
+</code></pre>
 
-func copyInfoHdr(dst *byte, psrc *infoHeader) (string, error) {
+<p>由于bmp图片信息为压缩，比较占用空间，一般保存到电脑上，可以使用jpg格式，golang bmp转jpg格式非常简单, 需要使用到&rdquo;golang.org/x/image/bmp&rdquo;
+和&rdquo;image/jpeg&rdquo;包</p>
 
-    pdst := (*infoHeader)(unsafe.Pointer(dst))
-
-    pdst.iSize = psrc.iSize
-    pdst.iWidth = psrc.iWidth
-    pdst.iHeight = psrc.iHeight
-    pdst.iPLanes = psrc.iPLanes
-    pdst.iBitCount = psrc.iBitCount
-    pdst.iCompression = psrc.iCompression
-    pdst.iSizeImage = psrc.iSizeImage
-    pdst.iXPelsPerMeter = psrc.iXPelsPerMeter
-    pdst.iYPelsPerMeter = psrc.iYPelsPerMeter
-    pdst.iClrUsed = psrc.iClrUsed
-    pdst.iClrImportant = psrc.iClrImportant
-
-    return &quot;copy infoHeader success&quot;, nil
-}
-
-func readUint16(b []byte) uint16 {
-    return uint16(b[0]) | uint16(b[1])&lt;&lt;8
-}
-
-func readUint32(b []byte) uint32 {
-    return uint32(b[0]) | uint32(b[1])&lt;&lt;8 | uint32(b[2])&lt;&lt;16 | uint32(b[3])&lt;&lt;24
-}
-
-func readClipboard(filename string) (string, error) {
-    const (
-        fileHeaderLen = 14
-        infoHeaderLen = 40
-    )
-
-    r, _, err := openClipboard.Call(0)
-    if r == 0 {
-        return &quot;openClipboard&quot;, err
-    }
-    defer closeClipboard.Call()
-
-    // check whether clipboard data is dib format
-    r, _, err = isClipboardFormatAvailable.Call(cfDib)
-    if r == 0 {
-        return &quot;not Dib format&quot;, err
-    }
-
-    h, _, err := getClipboardData.Call(cfDib)
-    if r == 0 {
-        return &quot;getClipboardData&quot;, err
-    }
-
-    // get dib data
-    pdata, _, err := globalLock.Call(h)
-    if pdata == 0 {
-        return &quot;writeToFile globalLock failed!&quot;, err
-    }
-
-    // the first 40 bytes are bmp info header
-    h2 := (*infoHeader)(unsafe.Pointer(pdata))
-
-    fmt.Println(h2)
-
-    // bmp file size should consist of fileheader 14 bytes, bmpinfoheader 40 bytes,
-    // and pixel data size
-    dataSize := h2.iSizeImage + fileHeaderLen + infoHeaderLen
-
-    // check for raw compression data without sizeimage provided condition
-    if h2.iSizeImage == 0 &amp;&amp; h2.iCompression == 0 {
-        // width*bitcount should be 4 byte align
-        iSizeImage := h2.iHeight * ((h2.iWidth*uint32(h2.iBitCount)/8 + 3) &amp;^ 3)
-        dataSize += iSizeImage
-    }
-
-    log.Println(&quot;datasize: &quot;, dataSize, h2.iHeight*((h2.iWidth*uint32(h2.iBitCount)/8+3)&amp;^3))
-    // data := make([]byte, dataSize)
-
-    // var hdr *fileHeader
-    data := new(bytes.Buffer)
-    // hdr := (*bytes.Buffer)(unsafe.Pointer(&amp;data[0]))
-    binary.Write(data, binary.LittleEndian, uint16('B')|(uint16('M')&lt;&lt;8))
-
-    // filesize
-    binary.Write(data, binary.LittleEndian, uint32(dataSize))
-    binary.Write(data, binary.LittleEndian, uint32(0))
-    const sizeof_colorbar = 0
-
-    // offset 
-    binary.Write(data, binary.LittleEndian, uint32(fileHeaderLen+infoHeaderLen+sizeof_colorbar))
-    log.Println(&quot;fileHeader &quot;, data.Bytes(), len(data.Bytes()))
-
-    // log.Println(&quot;header: &quot;, hdr, data[:8])
-    // log.Print(&quot;bfOffBits &quot;, hdr.bfOffBits)
-    // copyInfoHdr(&amp;data[fileHeaderLen], h2)
-    j := 0
-    for i := fileHeaderLen; i &lt; int(dataSize); i++ {
-        binary.Write(data, binary.LittleEndian, *(*byte)(unsafe.Pointer(pdata + uintptr(j))))
-        j++
-    }
-
-    for i := 0; i &lt; 12; i++ {
-        // binary.Write(data, binary.LittleEndian, byte(0))
-    }
-
-    fmt.Println(data.Bytes()[:60])
-    // fmt.Println(data.Bytes()[1196900:])
-
-    saveAs(data, &quot;testjpg.jpg&quot;)
-
-    return &quot;success&quot;, nil
-}
-
-func saveAs(dat *bytes.Buffer, filename string) (string, error) {
-    // var buf bytes.Buffer
-    // buf.Write(dat)
-    // f, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0755)
-    f, err := os.OpenFile(filename, os.O_RDWR|os.O_CREATE, 0755)
+<pre><code class="language-golang">    original_image, err := bmp.Decode(dat)
     if err != nil {
         log.Fatal(err)
     }
 
-    log.Println(&quot;try decode&quot;)
-    original_image, err := bmp.Decode(dat)
+    err = jpeg.Encode(f, original_image, nil) // f为二进制写权限打开的文件句柄
     if err != nil {
         log.Fatal(err)
     }
-    log.Println(&quot;decode success&quot;)
-
-    err = jpeg.Encode(f, original_image, nil)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    if err := f.Close(); err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println(&quot;write file %s success&quot;, filename)
-    return &quot;succ&quot;, nil
-}
 </code></pre>
 
 	
